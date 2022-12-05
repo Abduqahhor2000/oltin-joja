@@ -10,6 +10,8 @@ module.exports = {
       'Neutral/Shades/04-75%': '#9A9FA5',
       "menuLine": "#FF6A55",
       "menuBG": "#FFF1EF",
+      "hoverButton": "#F29900",
+      "Neutral/Shade/04-40%": "rgba(111, 118, 126, 0.4)"
       },
     },
     fontFamily: {

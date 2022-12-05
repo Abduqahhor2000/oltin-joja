@@ -9,6 +9,8 @@ import {
   menus_svg_active,
   menu_arrow_svg,
 } from "../../svg/menu";
+import avatar from "../../images/avatar.png";
+import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
 
 function Main() {
   const [menus, setMenus] = useState([
@@ -229,8 +231,26 @@ function Main() {
         </div>
       </div>
       <div className="bg-Neutral/02 min-h-screen max-h-screen w-[calc(100%-250px)] overflow-y-auto">
-        <div className="bg-white h-20 sticky top-0">
-
+        <div className="bg-white h-20 sticky z-10 top-0 flex justify-end items-center pr-10">
+          <span className="relative">
+            <input
+              className="placeholder:text-Neutral/Shades/04-75% bg-Neutral/02 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
+              type="text"
+              placeholder="Search here"
+            />
+            <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">{search_svg}</span>
+          </span>
+          <span className="p-1 block cursor-pointer relative ml-9">
+            <span className="h-3 w-3 bg-Primary/03 absolute top-1 right-1 rounded-full border-[2px] border-solid border-white"></span>
+            {message_svg}
+          </span>
+          <span className="p-1 block cursor-pointer relative ml-8">
+            <span className="h-3 w-3 bg-Primary/03 absolute top-1 right-1 rounded-full border-[2px] border-solid border-white"></span>
+            {notif_svg}
+          </span>
+          <div className="ml-[26px] h-11 w-11 rounded-full">
+            <img src={avatar} alt="" className="w-full h-full" />
+          </div>
         </div>
 
         <Outlet />

@@ -8,6 +8,8 @@ module.exports = {
       'Neutral/02': '#F4F4F4',
       'Primary/03': '#FFA101',
       'Neutral/Shades/04-75%': '#9A9FA5',
+      "menuLine": "#FF6A55",
+      "menuBG": "#FFF1EF",
       },
     },
     fontFamily: {

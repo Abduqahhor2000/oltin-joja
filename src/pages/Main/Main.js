@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 import {
   dashboard_svg,
   dashboard_svg_active,
@@ -60,7 +60,19 @@ function Main() {
         },
       ],
     },
-  ])
+  ]);
+
+  const menuControl = (name) => {
+    setMenus(
+      menus.map((item) => {
+        if (item.name === name) {
+          return { ...item, isActive: !item.isActive };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
 
   return (
     <div className="min-h-screen relative flex justify-end">
@@ -68,39 +80,70 @@ function Main() {
         <div className="font-normal text-[30px] text-Primary/03 font-rowdies px-7 py-[22px] leading-9">
           Oltin Jo’ja
         </div>
-        <div className="mt-[34px] flex flex-col pl-7">
-          {menus.map((menu) => {
+        <div className="mt-[34px] flex flex-col">
+          {menus.map((menu, index) => {
             return (
-              <div className="pl-6 mb-2">
-                <div className="group flex items-center h-10 cursor-pointer">
+              <div key={index} className="mb-2">
+                <Link
+                  to={menu.items.length ? null : menu.url}
+                  onClick={() => menuControl(menu.name)}
+                  className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
+                    menu.isActive
+                      ? "bg-menuBG border-menuLine"
+                      : "bg-white border-transparent"
+                  }`}
+                >
                   <div className="relative flex justify-between items-center w-full pr-7">
                     <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
                       <span className="hidden group-hover:block">
                         {menu.icon.active}
                       </span>
                       <span className="block group-hover:hidden">
-                        {menu.icon.inactive}
+                        {menu.isActive ? menu.icon.active : menu.icon.inactive}
                       </span>
                     </span>
-                    <span className="text-[15px] text-Neutral/Shades/04-75% group-hover:text-Primary/03 font-medium">
+                    <span
+                      className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
+                        menu.isActive
+                          ? "text-Primary/03"
+                          : "text-Neutral/Shades/04-75%"
+                      }`}
+                    >
                       {menu.name}
                     </span>
                     {menu.items.length ? (
-                      <span className="stroke-Neutral/Shades/04-75% group-hover:stroke-Primary/03">
+                      <span
+                        className={`group-hover:stroke-Primary/03 duration-200 ${
+                          menu.isActive
+                            ? "stroke-Primary/03 rotate-0"
+                            : "stroke-Neutral/Shades/04-75% rotate-180"
+                        }`}
+                      >
                         {menu_arrow_svg}
                       </span>
                     ) : null}
                   </div>
-                </div>
+                </Link>
                 {menu.items.length ? (
-                  <div className="text-[15px] text-Neutral/Shades/04-75% font-medium leading-6 mt-2">
-                    {menu.items.map((item) => {
-                      return (
-                        <div className="hover:text-Primary/03 my-1 cursor-pointer">
-                          {item.name}
-                        </div>
-                      );
-                    })}
+                  <div
+                    style={{ height: `${menu.items.length * 32 + 8}px` }}
+                    className={`text-[15px] text-Neutral/Shades/04-75% font-medium pl-12 leading-6 duration-200 overflow-y-hidden ${
+                      menu.isActive ? `` : "!h-0"
+                    }`}
+                  >
+                    <div className="mt-2 min-h-min flex flex-col">
+                      {menu.items.map((item) => {
+                        return (
+                          <Link
+                            to={item.url}
+                            key={item.url}
+                            className="hover:text-Primary/03 my-1 cursor-pointer"
+                          >
+                            {item.name}
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -186,10 +229,12 @@ function Main() {
         </div>
       </div>
       <div className="bg-Neutral/02 min-h-screen max-h-screen w-[calc(100%-250px)] overflow-y-auto">
-        <div className="bg-white h-20 sticky top-0"></div>
-        <div></div>
+        <div className="bg-white h-20 sticky top-0">
+
+        </div>
+
+        <Outlet />
       </div>
-      <Outlet />
     </div>
   );
 }

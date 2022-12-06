@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: { 
       colors: {
+      'Neutral/04': '#6F767E',
       'Neutral/03': '#EFEFEF',
       'Neutral/02': '#F4F4F4',
       'Primary/03': '#FFA101',
@@ -11,7 +12,8 @@ module.exports = {
       "menuLine": "#FF6A55",
       "menuBG": "#FFF1EF",
       "hoverButton": "#F29900",
-      "Neutral/Shade/04-40%": "rgba(111, 118, 126, 0.4)"
+      "Neutral/Shade/04-40%": "rgba(111, 118, 126, 0.4)",
+      "Neutral/Shade/07-50%": "#11131580",
       },
     },
     fontFamily: {

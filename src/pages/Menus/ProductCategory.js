@@ -40,54 +40,54 @@ function ProductCategory() {
       id: 0,
       name: "Pizza for kids",
       imgUrl: delicious,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: false,
     },
     {
       id: 1,
       name: "Bergur Kok",
       imgUrl: food,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: false,
     },
     {
       id: 2,
       name: "Pizza for kids",
       imgUrl: dumplings,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: true,
     },
     {
       id: 3,
       name: "Pizza for kids",
       imgUrl: fried,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: true,
     },
     {
       id: 4,
       name: "Pizza for kids",
       imgUrl: baguette,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: true,
     },
     {
       id: 5,
       name: "Pizza for kids",
       imgUrl: monika,
-      price: 32,
+      price: "32.000",
       totalOrders: 250,
-      revenue: 1000,
+      revenue: "15.129.000",
       inStock: true,
     },
   ]);
@@ -159,12 +159,12 @@ function ProductCategory() {
                 <div className="flex justify-between items-center mb-2.5">
                   <span className="font-semibold pl-1">{product.name}</span>
                   <span className="text-white py-0.5 px-2.5 leading-6 bg-Primary/03 rounded-[10px]">
-                    Price: ${product.price}
+                    Price: {product.price}
                   </span>
                 </div>
                 <div className="flex justify-between text-Neutral/Shades/04-75% mb-2.5">
                   <span className="pl-1">Total Order: {product.totalOrders}</span>
-                  <span>Revenue: ${product.revenue}</span>
+                  <span>Revenue: {product.revenue}</span>
                 </div>
                 <div className="flex justify-between items-center pl-1">
                   <span onClick={()=> cantrolStock(product.id)} className={`w-[calc(100%-100px)] h-10 rounded-[10px] select-none ${product.inStock ? "bg-Primary/03 hover:bg-hoverButton" : "bg-Primary/03/50 hover:bg-Primary/03/70"} cursor-pointer text-white font-semibold duration-200 flex justify-center items-center`}>

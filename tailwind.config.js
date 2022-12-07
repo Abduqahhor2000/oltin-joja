@@ -14,6 +14,7 @@ module.exports = {
       "hoverButton": "#F29900",
       "Neutral/Shade/04-40%": "rgba(111, 118, 126, 0.4)",
       "Neutral/Shade/07-50%": "#11131580",
+      "default-img" : "#C4C4C4",
       },
     },
     fontFamily: {

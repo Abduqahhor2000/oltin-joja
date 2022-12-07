@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import {
+  customers_svg,
+  customers_svg_active,
   dashboard_svg,
   dashboard_svg_active,
   invoice_svg,
@@ -8,6 +10,8 @@ import {
   menus_svg,
   menus_svg_active,
   menu_arrow_svg,
+  setting_svg,
+  setting_svg_active,
 } from "../../svg/menu";
 import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
@@ -61,6 +65,35 @@ function Main() {
           name: "Invoice list",
         },
       ],
+    },
+    {
+      name: "Customers",
+      url: "/customers",
+      isActive: false,
+      icon: {
+        active: customers_svg_active,
+        inactive: customers_svg,
+      },
+      items: [
+        {
+          url: "/customers_list",
+          name: "Customer list",
+        },
+        {
+          url: "/customers_review",
+          name: "Customer review",
+        },
+      ],
+    },
+    {
+      name: "Settings",
+      url: "/settings",
+      isActive: true,
+      icon: {
+        active: setting_svg_active,
+        inactive: setting_svg,
+      },
+      items: [],
     },
   ]);
 

@@ -10,7 +10,9 @@ import ProductCategory from "./pages/Menus/ProductCategory";
 import ProductList from "./pages/Menus/ProductList";
 import InvoiceList from "./pages/Invoice/InvoiceList";
 import InvoiceDetail from "./pages/Invoice/InvoiceDetail";
-
+import CustomersList from "./pages/Customers/CustomersList"
+import CustomersReview from "./pages/Customers/CustomersReview"
+import Settings from "./pages/Settings/Settings"
 
 const router = createBrowserRouter([
     {
@@ -45,6 +47,18 @@ const router = createBrowserRouter([
         {
           path: "/invoice_list",
           element: <InvoiceList />,
+        },
+        {
+          path: "/customers_review",
+          element: <CustomersReview />,
+        },
+        {
+          path: "/customers_list",
+          element: <CustomersList />,
+        },
+        {
+          path: "/settings",
+          element: <Settings />,
         },
       ],
     },

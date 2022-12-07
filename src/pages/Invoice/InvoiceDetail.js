@@ -202,12 +202,12 @@ function InvoiceList() {
                   </div>
                 </th>
                 <th>
-                <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
+                <div className="text-center border-b-2 border-Neutral/03 font-semibold py-4">
                   Source
                   </div>
                 </th>
                 <th>
-                <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
+                <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4 pl-2">
                   Order Type
                   </div>
                 </th>
@@ -241,7 +241,7 @@ function InvoiceList() {
                     </td>
                     <td className="py-3 min-w-[120px]">{invoice.phone}</td>
                     <td className="py-2 min-w-[75px]">{invoice.price}</td>
-                    <td className="py-[14px] min-w-[70px]">
+                    <td className="py-[14px] min-w-[70px] flex justify-center">
                       {invoice.source === "web"
                         ? web_svg
                         : invoice.source === "mob"
@@ -250,7 +250,7 @@ function InvoiceList() {
                         ? bot_svg
                         : "null"}
                     </td>
-                    <td className="py-3 min-w-[100px]">
+                    <td className="py-3 min-w-[100px] pl-2">
                       {invoice.orderType}
                     </td>
                     <td className="py-3 min-w-[135px]">

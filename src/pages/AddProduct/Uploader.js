@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Content from "./UploaderContent";
 
+
 const Uploader = ({ setGetImage, checkFile, }) => {
     const [images, setImages] = useState([]);
     const [imageUrls, setImageUrls] = useState([]);

@@ -134,7 +134,8 @@ const ProductForm = () => {
                                 {...item}
 
                             />
-                        )
+            
+                            )
                     })}
                     <div className="w-[100%] h-[45px] ">
                         <select required value={selected} onChange={handleSelectChange} className="w-full h-full border outline-none rounded-lg">

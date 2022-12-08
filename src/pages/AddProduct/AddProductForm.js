@@ -3,70 +3,33 @@ import BaseInput from "./baseInput"
 import Uploader from "./Uploader";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Select from 'react-select';
+
 
 const ProductForm = () => {
     const [getImage, setGetImage] = useState('')
-    const [selected, setSelected] = useState("")
+    const [categories, setCategories] = useState("")
     const [status, setStatus] = useState(true)
     const [discount, setDiscount] = useState(true)
     const [measurements, setMeasurments] = useState("")
+    const [checkFile, setCheckFile] = useState(false)
+    const [checkMeasurement, setCheckMeasurement] = useState(false)
+    const [checkCategory, setCheckCategory] = useState(false)
+
     const [values, setValues] = useState({
         product_name: "",
         price: "",
         discount: "",
-        kategory: "",
+        category: "",
+        measurement: "",
         description: "",
         image: "",
         status_available: [],
         discount_active: []
     });
-    const notify = () => toast.success('Successfuly created', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    });
 
-    const category_name = [
-        {
-            id: 1,
-            kategory: "Select kategoria",
-            disable: "disable",
-
-        },
-        {
-            id: 2,
-            kategory: "kategoriya1",
-        },
-        {
-            id: 3,
-            kategory: "kategoriya2",
-
-        },
-        {
-            id: 4,
-            kategory: "kategoriya3",
-
-        },
-
-    ]
-
-    const measurements_name = [
-        {
-            id: 1,
-            name: "Dona"
-        },
-        {
-            id: 2,
-            name: "Kilogramm"
-        },
-
-
-    ]
+    const defaultValueMeasurment = [{ label: "Measurement" }]
+    const defaultValueCategory = [{ label: "Category" }]
 
     const data = [
         {
@@ -92,38 +55,79 @@ const ProductForm = () => {
         }
     ]
 
-    const [checkFile, setCheckFile] = useState(false)
+    const options_1 = [
+        { value: '1-kategoriya', label: '1-kategoriya' },
+        { value: '2-kategoria', label: '2-kategoria' },
+    ];
+    const options_2 = [
+        { value: 'dona', label: 'dona' },
+        { value: 'kg', label: 'kg' },
+
+    ];
+
 
     useEffect(() => {
         setCheckFile(false)
-    }, [getImage])
+        setCheckMeasurement(false)
+        setCheckCategory(false)
+    }, [getImage, measurements, categories])
+
     const handleSumbit = (event) => {
         event.preventDefault();
         values.image = getImage
+        values.measurement = measurements
+        values.category = categories
+
         if (!values.image.length) {
             setCheckFile(true)
         }
-        if (values.image.length) {
-            values.kategory = selected
-            values.measurement = measurements
-            values.status_available = status
-            values.discount_active = discount
-            notify()
+        if (!values.measurement) {
+            setCheckMeasurement(true)
         }
+        if (!values.category) {
+            setCheckCategory(true)
+        }
+
+        if (values.image.length && values.measurement.length && values.category.length) {
+        values.status_available = status
+        values.discount_active = discount
+        notify()
+        }
+        console.log(values);
     };
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
 
     };
-    function handleSelectChange(event) {
-        setSelected(event.target.value);
-        setMeasurments(event.target.value)
-        console.log(selected);
+
+    const colorStyle = {
+        control: (styles) => ({ ...styles, border: "none", boxShadow: "none" }),
+        indicatorSeparator: (provided) => {
+            return {
+                ...provided,
+                display: "none",
+            };
+        },
+
+
     }
+    const notify = () => toast.success('Successfuly created', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
+
+
     return (
         <>
-            <form onSubmit={handleSumbit} className="grid 2xl:grid-cols-3 grid-cols-1 ">
-                <div className="2xl:w-[95%] xl:w-[95%] lg:w-[95%]  grid grid-cols-2 gap-5 col-span-2 ">
+          
+            <form onSubmit={handleSumbit} className="grid xl:grid-cols-3 grid-col-1">
+                <div className="grid-cols-2  grid gap-2 xl:w-[97%]  sm:w-[100%]  xl:col-span-2 sm:col-span-3 col-span-3 ">
                     {data.map((item, index) => {
                         return (
                             <BaseInput onChange={onChange}
@@ -132,34 +136,28 @@ const ProductForm = () => {
                                 id={item.id}
                                 value={values[item.item_name]}
                                 {...item}
-
                             />
-
                         )
                     })}
-                    <div className="w-[100%] h-[45px] border rounded-lg p-2">
-                        <select required value={selected} onChange={handleSelectChange} className="w-full h-full  outline-none ">
-                            {
-                                category_name.map((item, index) => {
-                                    return (
-                                        <option
-                                            {...item} value={item.kategory} className="border outline-none" key={index}>{item.kategory}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                    <div className={`w-[100%] h-[45px] border rounded-lg p-1 ${checkCategory && "border-red-400" || categories.length && 'border-green-300'}`}>
+                        <Select
+                            preffix="none"
+                            styles={colorStyle}
+                            defaultValue={defaultValueCategory[0]}
+                            onChange={(e) => setCategories(e.value)}
+                            options={options_1}
+                        />
+                        {checkCategory && <p className="mt-1 text-[12px] text-red-500 ease-in duration-300 ">Category is required</p>}
                     </div>
-                    <div className="w-[100%] h-[45px] border p-2 rounded-lg">
-                        <select required value={measurements} onChange={handleSelectChange} className="w-full h-full  outline-none">
-                            {
-                                measurements_name.map((item, index) => {
-                                    return (
-                                        <option
-                                            {...item} value={item.name} className="border outline-none" key={index}>{item.name}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                    <div className={`w-[100%] h-[45px] border rounded-lg p-1 ${checkMeasurement && "border-red-400" || measurements.length && 'border-green-300'}`}>
+                        <Select
+                            styles={colorStyle}
+                            defaultValue={defaultValueMeasurment[0]}
+                            onChange={(e) => setMeasurments(e.value)}
+                            options={options_2}
+                            required
+                        />
+                        {checkMeasurement && <p className="mt-1 text-[12px] text-red-500 ease-in duration-300 ">Measurement is required</p>}
                     </div>
                     <div className="w-full col-span-2  h-[150px] relative">
                         <textarea required name="description" onChange={onChange} className="peer w-full h-full valid:border-green-300 focus:border-Primary/03  border outline-none rounded-lg p-3 resize-none" />
@@ -171,7 +169,7 @@ const ProductForm = () => {
                         </span>
                     </div>
                 </div>
-                <div className="w-full  h-full col-span-1  ">
+                <div className="xl:col-span-1 col-span-3 xl:mt-0 mt-10">
                     <Uploader setGetImage={setGetImage} checkFile={checkFile} />
                     <div className="w-full h-auto  mt-5">
                         <div className="flex justify-between border-b-[1px] px-1 py-3">
@@ -192,8 +190,7 @@ const ProductForm = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div></div> */}
-                <div className="w-full col-span-3  flex justify-end mt-10">
+                <div className="col-span-3  justify-end grid mt-10">
                     <div className="flex justify-between w-[280px]">
                         <button className="w-32 h-10 border rounded-md p-2">Cancel</button>
                         <button className="w-32 h-10 border rounded-md bg-[#FFA101] p-2 text-white">Save and add</button>

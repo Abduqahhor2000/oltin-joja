@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { edit_svg, del_svg } from "../../svg/product";
-import baguette from "../../images/baguette.png";
-import delicious from "../../images/delicious.png";
-import dumplings from "../../images/dumplings.png";
-import food from "../../images/food.png";
-import fried from "../../images/fried.png";
-import monika from "../../images/monika.png";
+import { edit_svg, del_svg } from "../../../svg/product";
+import baguette from "../../../images/baguette.png";
+import delicious from "../../../images/delicious.png";
+import dumplings from "../../../images/dumplings.png";
+import food from "../../../images/food.png";
+import fried from "../../../images/fried.png";
+import monika from "../../../images/monika.png";
 
-function ProductCategory() {
+function ProductCategory({root, setRoot}) {
   const [categories, setCategories] = useState([
     {
       id: 0,
@@ -137,7 +137,7 @@ function ProductCategory() {
               );
             })}
           </div>
-          <span className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
+          <span onClick={() => setRoot("add")} className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
             {" "}
             <span className="text-3xl absolute inset-y-0 my-0 left-4 font-thin">
               +

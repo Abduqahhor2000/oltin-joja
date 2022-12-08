@@ -25,10 +25,6 @@ code {
     monospace;
 }
 
-.addProductInput{
-  outline: none !important;
-  width: 400px !important;
-
 /* width */
 ::-webkit-scrollbar {
   width: 4px;

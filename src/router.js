@@ -10,9 +10,11 @@ import ProductCategory from "./pages/Menus/ProductCategory/Index";
 import ProductList from "./pages/Menus/ProductList/Index";
 import InvoiceList from "./pages/Invoice/InvoiceList";
 import InvoiceDetail from "./pages/Invoice/InvoiceDetail";
-import CustomersList from "./pages/Customers/CustomersList"
-import CustomersReview from "./pages/Customers/CustomersReview"
-import Settings from "./pages/Settings/Settings"
+import CustomersList from "./pages/Customers/CustomersList/Index"
+import CustomersReview from "./pages/Customers/CustomersReview/Index"
+// import Settings from "./pages/Settings/Settings"
+import Admins from "./pages/Settings/Admin/Index";
+import Categories from "./pages/Settings/Category/Index";
 
 const router = createBrowserRouter([
     {
@@ -57,8 +59,12 @@ const router = createBrowserRouter([
           element: <CustomersList />,
         },
         {
-          path: "/settings",
-          element: <Settings />,
+          path: "/admins",
+          element: <Admins />,
+        },
+        {
+          path: "/categories",
+          element: <Categories />,
         },
       ],
     },

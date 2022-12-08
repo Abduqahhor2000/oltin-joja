@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCategory from './ProductCategory';
 import AddProduct from "../../AddProduct/AddProduct"
+import { useLocation } from 'react-router-dom';
 
-function Index() {
+function Index(props) {
   const [root, setRoot] = useState("")
+  const location = useLocation()
+
+  useEffect(()=>{
+    console.log(location)
+    setRoot("")
+  }, [location])
+
+  console.log(props);
 
   switch(root) {
     case "product":

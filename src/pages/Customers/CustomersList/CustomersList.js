@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { search_svg } from "../../svg/navbar";
-import customer_img from "../../images/customer.png";
-import customer1_img from "../../images/customer1.png";
-import customer2_img from "../../images/customer2.png";
-import customer3_img from "../../images/customer3.png";
-import customer4_img from "../../images/customer4.png";
-import customer5_img from "../../images/customer5.png";
-import customer6_img from "../../images/customer6.png";
-import customer7_img from "../../images/customer7.png";
-import customer8_img from "../../images/customer8.png";
+import { search_svg } from "../../../svg/navbar";
+import customer_img from "../../../images/customer.png";
+import customer1_img from "../../../images/customer1.png";
+import customer2_img from "../../../images/customer2.png";
+import customer3_img from "../../../images/customer3.png";
+import customer4_img from "../../../images/customer4.png";
+import customer5_img from "../../../images/customer5.png";
+import customer6_img from "../../../images/customer6.png";
+import customer7_img from "../../../images/customer7.png";
+import customer8_img from "../../../images/customer8.png";
 
 function CustomersList() {
   const [customers, setCustomers] = useState([

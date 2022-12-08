@@ -30,7 +30,7 @@ function Main() {
     },
     {
       name: "Menus",
-      url: "/",
+      url: "",
       isActive: false,
       icon: {
         active: menus_svg_active,
@@ -49,7 +49,7 @@ function Main() {
     },
     {
       name: "Invoice",
-      url: "/",
+      url: "",
       isActive: false,
       icon: {
         active: invoice_svg_active,
@@ -68,7 +68,7 @@ function Main() {
     },
     {
       name: "Customers",
-      url: "/customers",
+      url: "",
       isActive: false,
       icon: {
         active: customers_svg_active,
@@ -87,13 +87,22 @@ function Main() {
     },
     {
       name: "Settings",
-      url: "/settings",
+      url: "",
       isActive: true,
       icon: {
         active: setting_svg_active,
         inactive: setting_svg,
       },
-      items: [],
+      items: [
+        {
+          url: "/admins",
+          name: "Admins",
+        },
+        {
+          url: "/categories",
+          name: "Categories",
+        },
+      ],
     },
   ]);
 
@@ -119,8 +128,10 @@ function Main() {
           {menus.map((menu, index) => {
             return (
               <div key={index} className="mb-2">
-                <Link
-                  to={menu.items.length ? null : menu.url}
+                {
+                  menu.url ? 
+                  <Link
+                  to={menu.url}
                   onClick={() => menuControl(menu.name)}
                   className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
                     menu.isActive
@@ -158,7 +169,48 @@ function Main() {
                       </span>
                     ) : null}
                   </div>
-                </Link>
+                </Link> 
+                :  <div
+                onClick={() => menuControl(menu.name)}
+                className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
+                  menu.isActive
+                    ? "bg-menuBG border-menuLine"
+                    : "bg-white border-transparent"
+                }`}
+              >
+                <div className="relative flex justify-between items-center w-full pr-7">
+                  <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
+                    <span className="hidden group-hover:block">
+                      {menu.icon.active}
+                    </span>
+                    <span className="block group-hover:hidden">
+                      {menu.isActive ? menu.icon.active : menu.icon.inactive}
+                    </span>
+                  </span>
+                  <span
+                    className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
+                      menu.isActive
+                        ? "text-Primary/03"
+                        : "text-Neutral/Shades/04-75%"
+                    }`}
+                  >
+                    {menu.name}
+                  </span>
+                  {menu.items.length ? (
+                    <span
+                      className={`group-hover:stroke-Primary/03 duration-200 ${
+                        menu.isActive
+                          ? "stroke-Primary/03 rotate-0"
+                          : "stroke-Neutral/Shades/04-75% rotate-180"
+                      }`}
+                    >
+                      {menu_arrow_svg}
+                    </span>
+                  ) : null}
+                </div>
+              </div> 
+                }
+                
                 {menu.items.length ? (
                   <div
                     style={{ height: `${menu.items.length * 32 + 8}px` }}
@@ -264,7 +316,7 @@ function Main() {
         </div>
       </div>
       <div className="bg-Neutral/02 min-h-screen max-h-screen w-[calc(100%-250px)] overflow-y-auto">
-        <div className="bg-white h-20 sticky z-10 top-0 flex justify-end items-center pr-10">
+        <div className="bg-white h-20 sticky z-[100] top-0 flex justify-end items-center pr-10">
           <span className="relative">
             <input
               className="placeholder:text-Neutral/Shades/04-75% bg-Neutral/02 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
@@ -286,7 +338,7 @@ function Main() {
           </div>
         </div>
 
-        <Outlet />
+        <Outlet  dadada={"daaa"} />
       </div>
     </div>
   );

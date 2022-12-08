@@ -6,8 +6,8 @@ import Login from "./pages/Login/Login"
 import ErrorPage from "./pages/Error/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EditProduct from "./pages/EditProuduct/EditProduct";
-import ProductCategory from "./pages/Menus/ProductCategory";
-import ProductList from "./pages/Menus/ProductList";
+import ProductCategory from "./pages/Menus/ProductCategory/Index";
+import ProductList from "./pages/Menus/ProductList/Index";
 import InvoiceList from "./pages/Invoice/InvoiceList";
 import InvoiceDetail from "./pages/Invoice/InvoiceDetail";
 import CustomersList from "./pages/Customers/CustomersList"

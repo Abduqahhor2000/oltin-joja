@@ -122,8 +122,8 @@ const ProductForm = () => {
     }
     return (
         <>
-            <form onSubmit={handleSumbit} className="grid 2xl:grid-cols-2 grid-cols-1">
-                <div className="w-[90%] grid grid-cols-2 gap-5">
+            <form onSubmit={handleSumbit} className="grid 2xl:grid-cols-3 grid-cols-1 ">
+                <div className="2xl:w-[95%] xl:w-[95%] lg:w-[95%]  grid grid-cols-2 gap-5 col-span-2 ">
                     {data.map((item, index) => {
                         return (
                             <BaseInput onChange={onChange}
@@ -134,11 +134,11 @@ const ProductForm = () => {
                                 {...item}
 
                             />
-            
-                            )
+
+                        )
                     })}
-                    <div className="w-[100%] h-[45px] ">
-                        <select required value={selected} onChange={handleSelectChange} className="w-full h-full border outline-none rounded-lg">
+                    <div className="w-[100%] h-[45px] border rounded-lg p-2">
+                        <select required value={selected} onChange={handleSelectChange} className="w-full h-full  outline-none ">
                             {
                                 category_name.map((item, index) => {
                                     return (
@@ -149,8 +149,8 @@ const ProductForm = () => {
                             }
                         </select>
                     </div>
-                    <div className="w-[100%] h-[45px] ">
-                        <select required value={measurements} onChange={handleSelectChange} className="w-full h-full border outline-none rounded-lg">
+                    <div className="w-[100%] h-[45px] border p-2 rounded-lg">
+                        <select required value={measurements} onChange={handleSelectChange} className="w-full h-full  outline-none">
                             {
                                 measurements_name.map((item, index) => {
                                     return (
@@ -171,7 +171,7 @@ const ProductForm = () => {
                         </span>
                     </div>
                 </div>
-                <div className="w-full  h-full ">
+                <div className="w-full  h-full col-span-1  ">
                     <Uploader setGetImage={setGetImage} checkFile={checkFile} />
                     <div className="w-full h-auto  mt-5">
                         <div className="flex justify-between border-b-[1px] px-1 py-3">
@@ -192,8 +192,8 @@ const ProductForm = () => {
                         </div>
                     </div>
                 </div>
-                <div></div>
-                <div className="w-full  flex justify-end mt-10">
+                {/* <div></div> */}
+                <div className="w-full col-span-3  flex justify-end mt-10">
                     <div className="flex justify-between w-[280px]">
                         <button className="w-32 h-10 border rounded-md p-2">Cancel</button>
                         <button className="w-32 h-10 border rounded-md bg-[#FFA101] p-2 text-white">Save and add</button>

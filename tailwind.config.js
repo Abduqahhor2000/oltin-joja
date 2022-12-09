@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: { 
+      screens:{
+        mdPlus:"1050px"
+      },
       colors: {
       'Neutral/04': '#6F767E',
       'Neutral/03': '#EFEFEF',

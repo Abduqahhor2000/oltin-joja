@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { edit_svg, del_svg, del_grey_svg, edit_grey_svg, send_grey_svg, send_svg } from "../../../svg/product";
+import {
+  edit_svg,
+  del_svg,
+  del_grey_svg,
+  edit_grey_svg,
+  send_grey_svg,
+  send_svg,
+} from "../../../svg/product";
 import baguette from "../../../images/baguette.png";
 import delicious from "../../../images/delicious.png";
 import dumplings from "../../../images/dumplings.png";
@@ -7,7 +14,7 @@ import food from "../../../images/food.png";
 import fried from "../../../images/fried.png";
 import monika from "../../../images/monika.png";
 
-function ProductList({root, setRoot}) {
+function ProductList({ root, setRoot }) {
   const [categories, setCategories] = useState([
     {
       id: 0,
@@ -146,12 +153,12 @@ function ProductList({root, setRoot}) {
     },
   ]);
 
-  useEffect(()=>{
-    const next_product= document.querySelector("#next-product")
-    next_product.addEventListener('popstate', function(event) {
-    console.log("hey")
-  })
-  },[])
+  useEffect(() => {
+    const next_product = document.querySelector("#next-product");
+    next_product.addEventListener("popstate", function (event) {
+      console.log("hey");
+    });
+  }, []);
 
   const selectCategory = (id) => {
     setCategories(
@@ -198,7 +205,10 @@ function ProductList({root, setRoot}) {
               );
             })}
           </div>
-          <span onClick={() => setRoot("add")} className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
+          <span
+            onClick={() => setRoot("add")}
+            className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white"
+          >
             {" "}
             <span className="text-3xl absolute inset-y-0 my-0 left-4 font-thin">
               +
@@ -212,22 +222,46 @@ function ProductList({root, setRoot}) {
         <div className="bg-white rounded-[10px] overflow-auto relative max-h-[calc(100vh-180px)]">
           <table className="w-full text-sm text-Neutral/Shades/04-75%">
             <thead>
-              <tr className="text-Neutral/Shade/07-50% border-b-2 border-Neutral/03 sticky top-0 bg-white z-10">
-                <th className="text-start font-semibold py-4 pl-5">
-                  ID number
+              <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">
+                <th>
+                  <div className="text-start font-semibold py-4 pl-5 border-b-2 border-Neutral/03">
+                    ID number
+                  </div>
                 </th>
-                <th className="text-start font-semibold py-4">Image</th>
-                <th className="text-start font-semibold py-4">Title</th>
-                <th className="text-center font-semibold py-4 ">Status</th>
-                <th className="text-start font-semibold py-4">Price</th>
-                <th></th>
+                <th>
+                  <div className="text-start font-semibold py-4 border-b-2 border-Neutral/03">
+                    Image
+                  </div>
+                </th>
+                <th>
+                  <div className="text-start font-semibold py-4 border-b-2 border-Neutral/03">
+                    Title
+                  </div>
+                </th>
+                <th>
+                  <div className="text-center font-semibold py-4 border-b-2 border-Neutral/03">
+                    Status
+                  </div>
+                </th>
+                <th>
+                  <div className="text-start font-semibold py-4 border-b-2 border-Neutral/03">
+                    Price
+                  </div>
+                </th>
+                <th>
+                  <div className="text-start text-transparent select-none font-semibold py-4 h-full border-b-2 border-Neutral/03">
+                    .
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
               {products.map((product, index, array) => {
                 return (
                   <tr key={product.id} className={`border-b border-Neutral/03`}>
-                    <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">{product.id}</td>
+                    <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
+                      {product.id}
+                    </td>
                     <td className="py-1.5 min-w-[80px]">
                       <img
                         className="w-10 h-10 rounded-full object-cover"

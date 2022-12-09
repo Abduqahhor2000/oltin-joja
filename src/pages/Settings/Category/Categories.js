@@ -39,12 +39,22 @@ function Categories({root, setRoot}) {
         <div className="bg-white rounded-[10px] overflow-auto relative max-h-[calc(100vh-180px)]">
           <table className="w-full text-sm text-Neutral/Shades/04-75%">
             <thead>
-              <tr className="text-Neutral/Shade/07-50% border-b-2 border-Neutral/03 sticky top-0 bg-white z-10">
-                <th className="text-start font-semibold py-4 pl-5">
-                  Id
+              <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">
+                <th>
+                  <div className="text-start font-semibold py-4 pl-5 border-b-2 border-Neutral/03">
+                    Id
+                  </div>
                 </th>
-                <th className="text-start font-semibold py-4">Name</th>
-                <th></th>
+                <th>
+                  <div className="text-start font-semibold py-4 border-b-2 border-Neutral/03">
+                    Name
+                  </div>
+                </th>
+                <th>
+                  <div className="text-start text-transparent select-none font-semibold py-4 border-b-2 border-Neutral/03">
+                    .
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>

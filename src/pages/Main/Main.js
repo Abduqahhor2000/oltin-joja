@@ -88,7 +88,7 @@ function Main() {
     {
       name: "Settings",
       url: "",
-      isActive: true,
+      isActive: false,
       icon: {
         active: setting_svg_active,
         inactive: setting_svg,

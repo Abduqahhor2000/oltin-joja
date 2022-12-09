@@ -125,23 +125,23 @@ function CustomersList() {
   return (
     <div>
       <div className="py-5 px-10">
-        <div className="bg-white rounded-[10px] text-lg leading-6 pl-7 py-2 text-Neutral/04 mb-5">
-          Customer detail
-        </div>
         <div className="bg-white rounded-[10px] overflow-hidden">
-          <div className="pt-7 pl-7">
+          <div className="pt-5 pl-7 flex justify-between">
+            <div className="text-lg leading-6 text-Neutral/04">
+              Customer list
+            </div>
             <span className="relative mr-5">
               <input
                 className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
                 type="text"
-                placeholder="Search by Name"
+                placeholder="Search customer"
               />
               <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
                 {search_svg}
               </span>
             </span>
           </div>
-          <div className="overflow-auto relative max-h-[calc(100vh-250px)]">
+          <div className="overflow-auto relative max-h-[calc(100vh-180px)]">
             <table className="w-full text-sm text-Neutral/Shades/04-75%">
               <thead>
                 <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">

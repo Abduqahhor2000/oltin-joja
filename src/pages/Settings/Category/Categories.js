@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { edit_svg, del_svg, del_grey_svg } from "../../../svg/product";
+import { edit_svg, del_svg, del_grey_svg, edit_grey_svg } from "../../../svg/product";
 
 function Categories({root, setRoot}) {
     const [categories, setCategories] = useState([
@@ -54,9 +54,15 @@ function Categories({root, setRoot}) {
                     <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">{category.id}</td>
                     <td className="py-3 min-w-[220px]">{category.name}</td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
-                      <div className="flex w-full justify-between">
-                        <span className="p-1 cursor-pointer w-8 h-8 select-none pt-1.5">
-                          {edit_svg}
+                    <div className="flex w-full justify-between">
+                        <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
+                          {/* {edit_svg} */}  
+                          <span className="hidden group-hover:block">
+                            {edit_svg}
+                          </span>
+                          <span className="block group-hover:hidden">
+                            {edit_grey_svg}
+                          </span>
                         </span>
                         <span className="p-1 cursor-pointer group select-none">
                           <span className="hidden group-hover:block">

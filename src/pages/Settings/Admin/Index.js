@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Admins from "./Admins"
+import AddAdmin from './AddAdmin'
 import { useLocation } from 'react-router-dom'
 
 function Index() {
@@ -15,6 +16,8 @@ function Index() {
   switch(root) {
     case "product":
       return <Admins root={root} setRoot={setRoot}/>
+    case "add":
+      return <AddAdmin root={root} setRoot={setRoot}/>
     default:
       return <Admins root={root} setRoot={setRoot}/>
   }

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { edit_svg, del_svg } from "../../../svg/product";
+import {
+  edit_svg,
+  edit_grey_svg,
+  del_svg,
+  del_grey_svg,
+} from "../../../svg/product";
 import baguette from "../../../images/baguette.png";
 import delicious from "../../../images/delicious.png";
 import dumplings from "../../../images/dumplings.png";
@@ -7,7 +12,7 @@ import food from "../../../images/food.png";
 import fried from "../../../images/fried.png";
 import monika from "../../../images/monika.png";
 
-function ProductCategory({root, setRoot}) {
+function ProductCategory({ root, setRoot }) {
   const [categories, setCategories] = useState([
     {
       id: 0,
@@ -114,7 +119,7 @@ function ProductCategory({root, setRoot}) {
         }
       })
     );
-  }
+  };
 
   return (
     <div>
@@ -137,7 +142,10 @@ function ProductCategory({root, setRoot}) {
               );
             })}
           </div>
-          <span onClick={() => setRoot("add")} className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
+          <span
+            onClick={() => setRoot("add")}
+            className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white"
+          >
             {" "}
             <span className="text-3xl absolute inset-y-0 my-0 left-4 font-thin">
               +
@@ -148,7 +156,10 @@ function ProductCategory({root, setRoot}) {
         <div className="pt-2.5 flex justify-between flex-wrap">
           {products.map((product) => {
             return (
-              <div key={product.id} className="w-[calc((100%-60px)/3)] bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 font-medium text-sm">
+              <div
+                key={product.id}
+                className="w-[calc((100%-60px)/3)] bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 font-medium text-sm"
+              >
                 <div className="h-48 w-full bg-zinc-300 rounded-[10px] mb-4 cursor-pointer overflow-hidden">
                   <img
                     src={product.imgUrl}
@@ -163,20 +174,37 @@ function ProductCategory({root, setRoot}) {
                   </span>
                 </div>
                 <div className="flex justify-between text-Neutral/Shades/04-75% mb-2.5">
-                  <span className="pl-1">Total Order: {product.totalOrders}</span>
+                  <span className="pl-1">
+                    Total Order: {product.totalOrders}
+                  </span>
                   <span>Revenue: {product.revenue}</span>
                 </div>
                 <div className="flex justify-between items-center pl-1">
-                  <span onClick={()=> cantrolStock(product.id)} className={`w-[calc(100%-100px)] h-10 rounded-[10px] select-none ${product.inStock ? "bg-Primary/03 hover:bg-hoverButton" : "bg-Primary/03/50 hover:bg-Primary/03/70"} cursor-pointer text-white font-semibold duration-200 flex justify-center items-center`}>
-                    {
-                      product.inStock ? "In Stock" : "Out of Stock"
-                    }
+                  <span
+                    onClick={() => cantrolStock(product.id)}
+                    className={`w-[calc(100%-100px)] h-10 rounded-[10px] select-none ${
+                      product.inStock
+                        ? "bg-Primary/03 hover:bg-hoverButton"
+                        : "bg-Primary/03/50 hover:bg-Primary/03/70"
+                    } cursor-pointer text-white font-semibold duration-200 flex justify-center items-center`}
+                  >
+                    {product.inStock ? "In Stock" : "Out of Stock"}
                   </span>
-                  <span className="w-10 h-10 rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
-                    {edit_svg}
+                  <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
+                    <span className="hidden group-hover:block">
+                      {edit_svg}
+                    </span>
+                    <span className="block group-hover:hidden">
+                      {edit_grey_svg}
+                    </span>
                   </span>
-                  <span className="w-10 h-10 rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
-                    {del_svg}
+                  <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
+                    <span className="hidden group-hover:block">
+                      {del_svg}
+                    </span>
+                    <span className="block group-hover:hidden">
+                      {del_grey_svg}
+                    </span>
                   </span>
                 </div>
               </div>

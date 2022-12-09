@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { edit_svg, del_svg, del_grey_svg } from "../../../svg/product";
+import { edit_svg, del_svg, del_grey_svg, edit_grey_svg, send_grey_svg, send_svg } from "../../../svg/product";
 import baguette from "../../../images/baguette.png";
 import delicious from "../../../images/delicious.png";
 import dumplings from "../../../images/dumplings.png";
@@ -206,10 +206,10 @@ function ProductList({root, setRoot}) {
             Add
           </span>
         </div>
-        <div className="bg-white rounded-[10px] uppercase text-lg leading-6 font-medium pl-5 py-2 text-Neutral/04 mb-5">
+        {/* <div className="bg-white rounded-[10px] uppercase text-lg leading-6 font-medium pl-5 py-2 text-Neutral/04 mb-5">
           Product List
-        </div>
-        <div className="bg-white rounded-[10px] overflow-auto relative max-h-[calc(100vh-240px)]">
+        </div> */}
+        <div className="bg-white rounded-[10px] overflow-auto relative max-h-[calc(100vh-180px)]">
           <table className="w-full text-sm text-Neutral/Shades/04-75%">
             <thead>
               <tr className="text-Neutral/Shade/07-50% border-b-2 border-Neutral/03 sticky top-0 bg-white z-10">
@@ -251,8 +251,21 @@ function ProductList({root, setRoot}) {
                     <td className="py-3 min-w-[100px]">{product.price}</td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
                       <div className="flex w-full justify-between">
-                        <span className="p-1 cursor-pointer w-8 h-8 select-none pt-1.5">
-                          {edit_svg}
+                        <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
+                          <span className="hidden group-hover:block">
+                            {edit_svg}
+                          </span>
+                          <span className="block group-hover:hidden">
+                            {edit_grey_svg}
+                          </span>
+                        </span>
+                        <span className="p-1 group cursor-pointer ml-2 mr-1 w-8 h-8 select-none pt-1.5">
+                          <span className="hidden group-hover:block">
+                            {send_svg}
+                          </span>
+                          <span className="block group-hover:hidden">
+                            {send_grey_svg}
+                          </span>
                         </span>
                         <span className="p-1 cursor-pointer group select-none">
                           <span className="hidden group-hover:block">

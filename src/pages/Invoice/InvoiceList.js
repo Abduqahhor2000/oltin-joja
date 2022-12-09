@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { del_grey_svg, del_svg } from "../../svg/product";
 import { search_svg } from "../../svg/navbar";
-import { send_svg } from "../../svg/invoice";
+import { send_svg, send_grey_svg } from "../../svg/product";
 
 function InvoiceList() {
   const [invoices, setInvoices] = useState([
@@ -118,43 +118,27 @@ function InvoiceList() {
   return (
     <div>
       <div className="py-5 px-10">
-        <div className="bg-white rounded-[10px] text-lg leading-6 pl-7 py-2 text-Neutral/04 mb-5">
-          Invoice list
+        <div >
+          
         </div>
         <div className="bg-white rounded-[10px] overflow-hidden">
-          <div className="pt-7 pl-7">
-            <span className="relative mr-5">
-              <input
-                className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
-                type="text"
-                placeholder="Search by ID"
-              />
-              <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
-                {search_svg}
-              </span>
+          <div className="pt-5 pl-7 flex justify-between">
+            <span className="text-lg leading-6 text-Neutral/04">
+              Invoice list
             </span>
             <span className="relative mr-5">
               <input
                 className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
                 type="text"
-                placeholder="Search by Name"
+                placeholder="Search invoice"
               />
               <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
                 {search_svg}
               </span>
             </span>
-            <span className="relative">
-              <input
-                className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
-                type="text"
-                placeholder="Search by Number"
-              />
-              <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
-                {search_svg}
-              </span>
-            </span>
+            
           </div>
-          <div className="overflow-auto relative max-h-[calc(100vh-250px)]">
+          <div className="overflow-auto relative max-h-[calc(100vh-180px)]">
             <table className="w-full text-sm text-Neutral/Shades/04-75%">
               <thead>
                 <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">
@@ -224,8 +208,13 @@ function InvoiceList() {
                       </td>
                       <td className="min-w-[135px] leading-5">
                         <div className="flex w-full justify-center">
-                          <span className="p-1 cursor-pointer w-8 h-8 select-none pt-1.5 mr-1.5">
-                            {send_svg}
+                          <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5 mr-1.5">
+                            <span className="hidden group-hover:block">
+                              {send_svg}
+                            </span>
+                            <span className="block group-hover:hidden">
+                              {send_grey_svg}
+                            </span>
                           </span>
                           <span className="p-1 cursor-pointer group select-none ml-1.5">
                             <span className="hidden group-hover:block">

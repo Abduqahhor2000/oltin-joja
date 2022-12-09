@@ -77,7 +77,7 @@ function CustomersReview() {
     <div>
       <div className="py-5 px-10">
         <div className="bg-white rounded-[10px] text-lg leading-6 pl-7 py-2 text-Neutral/04 mb-5">
-          Customer detail
+          Customer review
         </div>
         <div className="bg-white rounded-[10px] overflow-hidden">
           <div className="max-h-[calc(100vh-180px)] overflow-y-auto py-5 px-7">

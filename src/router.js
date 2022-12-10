@@ -15,6 +15,7 @@ import CustomersReview from "./pages/Customers/CustomersReview/Index"
 // import Settings from "./pages/Settings/Settings"
 import Admins from "./pages/Settings/Admin/Index";
 import Categories from "./pages/Settings/Category/Index";
+import InvoiceInfo from "./pages/InvoiceInfo/InvoiceInfo";
 
 const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
         {
           path: "/categories",
           element: <Categories />,
+        },
+        {
+          path: "/invoice_info",
+          element: <InvoiceInfo />,
         },
       ],
     },

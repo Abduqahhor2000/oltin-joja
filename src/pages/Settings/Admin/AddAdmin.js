@@ -43,6 +43,7 @@ function AddAdmin() {
                   values={values}
                   errors={errors}
                   type={"full_name"}
+                  placeholderText={"Full name"}
                 />
               </div>
               <div className="w-[calc((100%-20px)/2)] text-Neutral/Shades/04-75% text-[15px]">
@@ -61,7 +62,8 @@ function AddAdmin() {
                   touched={touched}
                   values={values}
                   errors={errors}
-                  type={"email"}     
+                  type={"email"}   
+                  placeholderText={"Email"}
                 />
               </div>
               <div className="w-[calc((100%-20px)/2)]">
@@ -71,6 +73,7 @@ function AddAdmin() {
                   values={values}
                   errors={errors}
                   type={"phone"}
+                  placeholderText={"Phone number"}
                 />
               </div>
               <div className="w-[calc((100%-20px)/2)]">
@@ -80,6 +83,7 @@ function AddAdmin() {
                   values={values}
                   errors={errors}
                   type={"password"}
+                  placeholderText={"Password"}
                 />
               </div>
               <div className="w-full border border-Neutral/03 rounded py-1.5 px-4">

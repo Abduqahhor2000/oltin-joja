@@ -18,6 +18,8 @@ module.exports = {
       "Neutral/Shade/04-40%": "rgba(111, 118, 126, 0.4)",
       "Neutral/Shade/07-50%": "#11131580",
       "default-img" : "#C4C4C4",
+      "success": "#27AE60",
+      "alarm": "#D83B3B",
       },
     },
     fontFamily: {

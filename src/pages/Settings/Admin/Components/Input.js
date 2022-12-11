@@ -1,7 +1,7 @@
 import React from "react";
 import { success_svg, error_svg } from "../../../../svg/admin";
 
-function Input({handleChange, touched, values, errors, type}) {
+function Input({handleChange, touched, values, errors, type, placeholderText}) {
   return (
     <div
       className={`relative w-full mb-5 ${
@@ -30,7 +30,7 @@ function Input({handleChange, touched, values, errors, type}) {
           values[type] ? "-top-2.5 text-sm" : "text-[15px]"
         } bg-white px-0.5 text-Neutral/Shades/04-75% rounded duration-200 pointer-events-none`}
       >
-        Full name
+        {placeholderText}
       </span>
       <span
         className={`absolute ${

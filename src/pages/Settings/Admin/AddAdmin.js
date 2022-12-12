@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { UsePostAdmin } from "../../../api/axios";
 import { img_svg } from "../../../svg/admin";
 import Input from "./Components/Input";
 import ReactSelect from "./Components/Select";
 
 let position = [
-  { value: "Admin", label: "Admin" },
-  { value: "Sotuvchi", label: "Sotuvchi" },
-  { value: "Oshpaz", label: "Oshpaz" },
+  { value: "admin", label: "Admin" },
+  { value: "super_admin", label: "Super admin" },
 ];
 
 function AddAdmin() {
@@ -17,13 +17,70 @@ function AddAdmin() {
     full_name: "",
     phone: "",
     email: "",
+    avatar: "string",
     role: "",
   });
+
+  console.log(values);
 
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
     setValues({ ...values, [name]: value });
+
+    let allValue = {...values, [name]: value}
+    let allError = {}
+
+    if (!allValue.full_name) {
+      allError.full_name = "Required";
+    } else if (allValue.full_name.length < 5) {
+      allError.full_name = "Must be at least 5 characters";
+    }
+
+    if (!allValue.role) {
+      allError.role = "Required";
+    }
+
+    if (!allValue.email) {
+      allError.email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(allValue.email)) {
+      allError.email = "Invalid email address";
+    }
+
+    if (!allValue.phone) {
+      allError.phone = "Required";
+    } else if (allValue.phone.length !== 13) {
+      allError.phone = "Invalid phone number";
+    }
+    
+    if (!allValue.password) {
+      allError.password = "Required";
+    } else if (allValue.password.length < 8) {
+      allError.password = "Must be at least 8 characters";
+    }
+
+    setErrors(allError)
+  }
+
+  function newAdminPost(e) {
+    e.preventDefault();
+
+    setTouched({
+      password: true,
+      full_name: true,
+      phone: true,
+      email: true,
+      avatar: true,
+      role: true,
+    })
+
+    if(errors.full_name || errors.role || errors.email || errors.phone || errors.password || false){
+      return;
+    }
+
+    UsePostAdmin(values)
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
   }
 
   return (
@@ -34,7 +91,7 @@ function AddAdmin() {
           <span> / Add Admin</span>
         </div>
         <div className="min-h-[430px] bg-white rounded-[10px] p-7 pb-5">
-          <form onSubmit={()=> console.log("salom")}>
+          <form onSubmit={newAdminPost}>
             <div className="flex mb-7">
               <div className="grow pr-7 flex justify-between flex-wrap">
                 <div className="w-full">
@@ -191,9 +248,12 @@ function AddAdmin() {
               <span className="p-2 text-center rounded border border-Neutral/Shade/04-40% min-w-[130px] text-Neutral/Shades/04-75% hover:bg-Neutral/02 cursor-pointer mr-5">
                 Cancel
               </span>
-              <span className="p-2 text-center rounded min-w-[130px] text-white bg-Primary/03 cursor-pointer hover:bg-hoverButton">
+              <button
+                type="submit"
+                className="p-2 text-center rounded min-w-[130px] text-white bg-Primary/03 cursor-pointer hover:bg-hoverButton"
+              >
                 Save and Add
-              </span>
+              </button>
             </div>
           </form>
         </div>

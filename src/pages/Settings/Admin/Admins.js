@@ -1,40 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { edit_svg, del_svg, del_grey_svg, edit_grey_svg } from "../../../svg/product";
 import admin0 from "../../../images/customer.png"
 import admin1 from "../../../images/customer1.png"
 import admin2 from "../../../images/customer2.png"
+import {UseGetAdmins} from "../../../api/axios"
 
 function Admins({root, setRoot}) {
-    const [admins, setAdmins] = useState([
-        {
-            id: 12155,
-            image: admin0,
-            name: "Aminjon Usmonov",
-            phone: "94-487-84-81",
-            email: "Aminjonusmonov@gmail.com",
-        },
-        {
-            id: 12156,
-            image: admin1,
-            name: "Hakim Bakirov",
-            phone: "94-487-84-81",
-            email: "Aminjonusmonov@gmail.com",
-        },
-        {
-            id: 12157,
-            image: null,
-            name: "Mahliyo Ilhamova",
-            phone: "94-487-84-81",
-            email: "Aminjonusmonov@gmail.com",
-        },
-        {
-            id: 12158,
-            image: admin2,
-            name: "Guli Yoldasheva",
-            phone: "94-487-84-81",
-            email: "Aminjonusmonov@gmail.com",
-        },
-    ])
+    const [admins, setAdmins] = useState([])
+
+    useEffect(() => {
+      UseGetAdmins().then((data)=> {
+        setAdmins(data.data.entities)
+      })
+    }, [])
+    
 
   return (
     <div>
@@ -93,23 +72,23 @@ function Admins({root, setRoot}) {
                   <tr key={admin.id} className={`border-b border-Neutral/03`}>
                     <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">{admin.id}</td>
                     <td className="py-1.5 min-w-[80px]">
-                    {admin.image ? (
+                    {admin?.avatar ? (
                           <img
                             className="w-10 h-10 rounded-full object-cover"
-                            src={admin.image}
+                            src={admin?.avatar}
                             alt=""
                           />
                         ) : (
                           <>
                           <span className="w-10 h-10 rounded-full bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
-                            {admin?.name.substring(0,1)}
+                            {admin?.full_name.substring(0,1)}
                           </span>
                           </>
                         )}
                     </td>
-                    <td className="py-3 min-w-[220px]">{admin.name}</td>
-                    <td className="py-3 min-w-[180px]">{admin.phone}</td>
-                    <td className="py-3 min-w-[100px]">{admin.email}</td>
+                    <td className="py-3 min-w-[220px]">{admin?.full_name}</td>
+                    <td className="py-3 min-w-[180px]">{admin?.phone}</td>
+                    <td className="py-3 min-w-[100px]">{admin?.email}</td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
                       <div className="flex w-full justify-between">
                         <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">

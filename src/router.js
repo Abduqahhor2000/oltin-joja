@@ -1,6 +1,7 @@
 import {
-    createBrowserRouter,
+    createBrowserRouter, useNavigate,
   } from "react-router-dom";
+import { useEffect } from "react";
 import Main from "./pages/Main/Main";  
 import Login from "./pages/Login/Login"
 import ErrorPage from "./pages/Error/ErrorPage";
@@ -17,8 +18,9 @@ import Admins from "./pages/Settings/Admin/Index";
 import Categories from "./pages/Settings/Category/Index";
 import InvoiceInfo from "./pages/InvoiceInfo/InvoiceInfo";
 
+
 const router = createBrowserRouter([
-    {
+    {   
       path: "/",
       element: <Main/>,
       errorElement: <ErrorPage />,

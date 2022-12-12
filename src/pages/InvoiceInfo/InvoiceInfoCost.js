@@ -7,7 +7,7 @@ const InfoCost = ({ infoData }) => {
                     <thead>
                         <tr className="text-[#6F767E] h-10 grid grid-cols-11 border-b-[1px] w-full items-start">
                             <th className="col-span-1 text-[#6F767E] ">
-                                id
+                                Id
                             </th>
                             <th className="col-span-4  text-left ">
                                 Description

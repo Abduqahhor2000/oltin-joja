@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import {
   customers_svg,
   customers_svg_active,
@@ -17,6 +17,8 @@ import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
 
 function Main() {
+  const navigate = useNavigate();
+
   const [menus, setMenus] = useState([
     {
       name: "Dashboard",
@@ -105,7 +107,12 @@ function Main() {
       ],
     },
   ]);
+  const token = localStorage.getItem("Authorization")
 
+  if(!token){
+    return navigate('/login')
+  }
+  
   const menuControl = (name) => {
     setMenus(
       menus.map((item) => {

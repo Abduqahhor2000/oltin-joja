@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const prodoctionInstance = createInstance(process.env.BASE_URL);
+const prodoctionInstance = createInstance(process.env.REACT_APP_BASE_URL);
 
 function createInstance(baseURL){
     return axios.create({

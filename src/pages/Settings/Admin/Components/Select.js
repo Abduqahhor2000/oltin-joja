@@ -78,7 +78,7 @@ export default function ReactSelect({
   type,
   position,
 }) {
-  console.log(handleChange, touched, values, errors, type, position);
+  // console.log(handleChange, touched, values, errors, type, position);
   return (
     <div
       className={`relative w-full mb-5 ${

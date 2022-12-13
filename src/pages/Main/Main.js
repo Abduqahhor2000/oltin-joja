@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import {
   customers_svg,
@@ -15,6 +15,7 @@ import {
 } from "../../svg/menu";
 import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
+import { notifyLoginSuccess, ToastContainer, ToastContainers } from "../../toastify/Toastify";
 
 function Main() {
   const navigate = useNavigate();
@@ -109,10 +110,15 @@ function Main() {
   ]);
   const token = localStorage.getItem("Authorization")
 
-  if(!token){
-    return navigate('/login')
-  }
-  
+  useEffect(()=>{
+    if(!token){
+      return navigate('/login')
+    }
+
+  },[])
+
+
+
   const menuControl = (name) => {
     setMenus(
       menus.map((item) => {

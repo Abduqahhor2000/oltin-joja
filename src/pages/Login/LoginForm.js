@@ -33,7 +33,7 @@ const LoginForm = () => {
                     setActive(false)
                     console.log(res.data);
                     localStorage.setItem("Authorization", res.data)
-                    navigate('/dashboard')
+                    navigate('/')
                 }
             }
             )

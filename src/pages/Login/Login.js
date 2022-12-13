@@ -18,6 +18,7 @@ function Login() {
           <div className='flex flex-wrap justify-center items-center'>
             <h2 className='w-full text-center mt-5 text-xl font-bold'>Login to Account</h2>
             <LoginForm />
+         
           </div>
         </div>
       </div>

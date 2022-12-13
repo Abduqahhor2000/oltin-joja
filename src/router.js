@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       children: [
         { 
           index: true,
-          element: <product_category />,
+          element: <ProductCategory />,
         },
         { 
           path: "/dashboard",

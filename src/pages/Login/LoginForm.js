@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyError, notifyLoginError, notifyLoginSuccess, notifySuccess } from '../../toastify/Toastify';
 import { useNavigate } from 'react-router-dom';
+import SyncLoader from "react-spinners/SyncLoader";
 
 
 const LoginForm = () => {
@@ -15,23 +16,30 @@ const LoginForm = () => {
         password: ""
     })
 
+    const [active, setActive] = useState(false)
 
-   
+    useEffect(() => {
+        setActive(false)
+    }, [setActive])
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        setActive(true)
         console.log(formValue);
         UseLogin(formValue)
             .then((res) => {
                 if (res.status == 200) {
                     notifyLoginSuccess()
+                    setActive(false)
                     console.log(res.data);
-                    localStorage.setItem("Authorization",res.data)
+                    localStorage.setItem("Authorization", res.data)
                     navigate('/dashboard')
                 }
             }
             )
             .catch((error) => (
                 console.log(error),
+                setActive(false),
                 notifyLoginError()
             )
             )
@@ -71,7 +79,11 @@ const LoginForm = () => {
 
             </div>
             <div className='flex justify-end w-full mt-5'><p className='underline-offset-1 underline cursor-pointer '>Forgot password</p></div>
-            <input type="submit" className='bg-Primary/03 w-full h-12 rounded-lg text-white text-lg' value="Sign in" />
+            <button
+                htmltype="submit"
+                className={`${active == true ? "  pointer-events-none  " : ""} bg-Primary/03 cursor-pointer w-full h-12 rounded-lg text-white text-lg`} >
+                        {active == true ? <SyncLoader  loading={active} color={'#fff'} size={10}/> : <p>Sign in</p>}
+                </button>
             <ToastContainer
                 position="top-center"
                 autoClose={3000}

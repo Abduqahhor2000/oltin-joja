@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 import {
   edit_svg,
   edit_grey_svg,
@@ -12,7 +13,8 @@ import food from "../../../images/food.png";
 import fried from "../../../images/fried.png";
 import monika from "../../../images/monika.png";
 
-function ProductCategory({ root, setRoot }) {
+function ProductCategory() {
+  const navigate = useNavigate()
   const [categories, setCategories] = useState([
     {
       id: 0,
@@ -143,7 +145,7 @@ function ProductCategory({ root, setRoot }) {
             })}
           </div>
           <span
-            onClick={() => setRoot("add")}
+            onClick={() => navigate("/product_category/add-product")}
             className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white"
           >
             {" "}

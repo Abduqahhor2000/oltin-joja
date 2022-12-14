@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { UsePostAdmin } from "../../../api/axios";
+import {useNavigate} from "react-router-dom"
+import { UsePostAdmin, UsePostImg } from "../../../api/axios";
 import { img_svg } from "../../../svg/admin";
 import Input from "./Components/Input";
 import ReactSelect from "./Components/Select";
@@ -9,7 +10,10 @@ let position = [
   { value: "super_admin", label: "Super admin" },
 ];
 
+const SUPPORTED_FORMATS = ["jpg", "png", "webp"];
+
 function AddAdmin() {
+  const navigate = useNavigate()
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
@@ -17,11 +21,15 @@ function AddAdmin() {
     full_name: "",
     phone: "",
     email: "",
-    avatar: "string",
+    avatar: "",
     role: "",
   });
+  const [loadingFile, setLoadingFile] = useState(0);
+  const [fileUploading, setFileUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState("");
+  const [fileError, setFileError] = useState("");
 
-  console.log(values);
+  // console.log(values);
 
   function handleChange(e) {
     let name = e.target.name;
@@ -83,11 +91,71 @@ function AddAdmin() {
       .catch((e) => console.log(e));
   }
 
+  function selectFile(file) {
+    if (loadingFile) {
+      setFileError("Please wait! Your file is loading...");
+      return;
+    }
+    const fileFormat = file.name.split(".").pop().toLowerCase();
+    if (!SUPPORTED_FORMATS.includes(fileFormat)) {
+      setFileError(
+        "Uploaded file has unsupported format. Please! Send the file in Webp, JPG or PNG format."
+      );
+      return;
+    } 
+    if (file.size > 1572864) {
+      setFileError(
+        "Uploaded file is too big. Please! File size should not exceed 1.5 MB"
+      );
+      return;
+    }
+    
+    setSelectedFile(file)
+    setFileError("");
+    uploadingFile(file);
+  }
+
+  function uploadingFile(file) {
+    // const config = {
+    //   onUploadProgress: function (progressEvent) {
+    //     const percentCompleted = Math.floor(
+    //       (progressEvent.loaded / progressEvent.total) * 100
+    //       );
+    //       setLoadingFile(percentCompleted);
+    //       if (percentCompleted === 100) {
+    //         setLoadingFile(0);
+    //       }
+    //     },
+    // };
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('associated_with', 'users');
+    formData.append('usage', 'avatar');
+    
+    setFileUploading(true);
+    UsePostImg(formData)
+    .then((data) => {
+        setFileUploading(false);
+        setFileError("");
+        // console.log(data);
+        setValues({...values, avatar: data?.data?.path});
+      })
+      .catch(() => {
+        setFileUploading(false);
+        setLoadingFile(0);
+        setSelectedFile("")
+        setFileError("Ooh, there was an error loading the file!");
+      });
+  }
+  
+  console.log(loadingFile)
+
   return (
     <div>
       <div className="py-5 px-10">
         <div className="mb-5 bg-white rounded-[10px] text-lg leading-6 pl-7 py-2 text-Neutral/04">
-          <span className="text-Primary/03">Admins</span>
+          <span className={`text-Primary/03 cursor-pointer`} onClick={()=> navigate("/admins")}>Admins</span>
           <span> / Add Admin</span>
         </div>
         <div className="min-h-[430px] bg-white rounded-[10px] p-7 pb-5">
@@ -220,28 +288,33 @@ function AddAdmin() {
                 <span className="block mb-2.5 text-sm text-Neutral/04 leading-5 flex-none">
                   Admin photo
                 </span>
-                <div className="border relative border-dashed border-Neutral/Shade/04-40% rounded-lg w-full grow">
-                  {true ? (
+                <div className={`border relative border-dashed rounded-lg w-full max-h-[250px] grow ${fileError ? "border-alarm" : values.avatar  ? "border-success" : "border-Neutral/Shade/04-40%"}`}>
+                  {selectedFile ? (
+                    <div className="w-full h-full">
+                      <img className={`w-full h-full object-contain ${fileUploading ? "animate-pulse" : ""}`} src={URL.createObjectURL(selectedFile)} alt=""/>
+                    </div>
+                  ):(
                     <div className="flex flex-col items-center w-full h-full justify-center">
                       <span>{img_svg}</span>
                       <span className="text-xs text-Neutral/Shades/04-75% mt-4">
                         Image size 400x400 px is recommended
                       </span>
                     </div>
-                  ) : (
-                    <div></div>
                   )}
                   <input
                     type="file"
-                    name="resume"
-                    // onChange={(e) => {
-                    //   if (e.target.files[0]) {
-                    //     selected(e.target.files[0]);
-                    //   }
-                    // }}
+                    name="photo"
+                    onChange={(e) => {
+                      if (e.target.files[0]) {
+                        selectFile(e.target.files[0]);
+                      }
+                    }}
                     className="absolute file:hidden text-transparent w-full h-full top-0 left-0 rounded cursor-pointer after:hidden before:hidden"
                   />
                 </div>
+                {
+                  fileError ? <span className="text-sm text-alarm">{fileError}</span> : null
+                }
               </div>
             </div>
             <div className="flex justify-end text-sm leading-6">

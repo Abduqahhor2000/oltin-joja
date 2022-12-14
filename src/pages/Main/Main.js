@@ -108,16 +108,13 @@ function Main() {
       ],
     },
   ]);
-  const token = localStorage.getItem("Authorization")
 
   useEffect(()=>{
+    const token = localStorage.getItem("Authorization")
     if(!token){
-      return navigate('/login')
+      navigate('/login')
     }
-
-  },[])
-
-
+  })
 
   const menuControl = (name) => {
     setMenus(

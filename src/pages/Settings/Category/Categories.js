@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { edit_svg, del_svg, del_grey_svg, edit_grey_svg } from "../../../svg/product";
 
-function Categories({root, setRoot}) {
+function Categories() {
     const [categories, setCategories] = useState([
         {
             id: 12155,
@@ -28,7 +28,7 @@ function Categories({root, setRoot}) {
           <div className="bg-white rounded-[10px] grow text-lg leading-6 mr-7 pl-7 py-2 text-Neutral/04">
           Categories
           </div>
-          <span onClick={() => setRoot("add")} className="h-10 flex-none max-w-max cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
+          <span className="h-10 flex-none max-w-max cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
             {" "}
             <span className="text-3xl absolute inset-y-0 my-0 left-4 font-thin">
               +

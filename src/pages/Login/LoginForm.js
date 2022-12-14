@@ -32,17 +32,17 @@ const LoginForm = () => {
                     notifyLoginSuccess()
                     setActive(false)
                     console.log(res.data);
-                    localStorage.setItem("Authorization", res.data)
+                    localStorage.setItem("Authorization", JSON.stringify(res.data))
                     navigate('/')
                 }
             }
             )
-            .catch((error) => (
-                console.log(error),
-                setActive(false),
+            .catch((error) => {
+                console.log(error)
+                setActive(false)
                 notifyLoginError()
-            )
-            )
+            
+    })
 
     }
 

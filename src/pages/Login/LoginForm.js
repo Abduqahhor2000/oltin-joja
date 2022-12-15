@@ -33,7 +33,6 @@ const LoginForm = () => {
                     setActive(false)
                     console.log(res.data);
                     localStorage.setItem("Authorization", JSON.stringify(res.data))
-
                     navigate('/product_category')
                 }
             }

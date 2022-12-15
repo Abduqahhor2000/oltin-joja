@@ -6,7 +6,7 @@ function createInstance(baseURL){
     return axios.create({
          baseURL,
          headers:{
-            Authorization:`Bearer ${localStorage.getItem("Authorization")}`,
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem("Authorization"))}`,
          }  
     })
 }

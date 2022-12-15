@@ -5,17 +5,23 @@ import admin0 from "../../../images/customer.png"
 import admin1 from "../../../images/customer1.png"
 import admin2 from "../../../images/customer2.png"
 import {UseGetAdmins} from "../../../api/axios"
+import axios from "axios";
 
 function Admins() {
   const navigate = useNavigate()
     const [admins, setAdmins] = useState([])
 
     useEffect(() => {
-      UseGetAdmins().then((data)=> {
+      axios.get("users/admins").then((data)=> {
         setAdmins(data.data.entities)
+      }).catch((e)=> {
+        console.log(e);
+        if(e.response.status === 401){
+          // localStorage.removeItem("Authorization")
+          navigate("/login")
+        }
       })
     }, [])
-    
 
   return (
     <div>

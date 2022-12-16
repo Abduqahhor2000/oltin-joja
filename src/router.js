@@ -7,15 +7,17 @@ import Login from "./pages/Login/Login"
 import ErrorPage from "./pages/Error/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EditProduct from "./pages/EditProuduct/EditProduct";
-import ProductCategory from "./pages/Menus/ProductCategory/Index";
-import ProductList from "./pages/Menus/ProductList/Index";
+import ProductCategory from "./pages/Menus/ProductCategory/ProductCategory";
+import ProductList from "./pages/Menus/ProductList/ProductList";
 import InvoiceList from "./pages/Invoice/InvoiceList";
 import InvoiceDetail from "./pages/Invoice/InvoiceDetail";
-import CustomersList from "./pages/Customers/CustomersList/Index"
-import CustomersReview from "./pages/Customers/CustomersReview/Index"
+import CustomersList from "./pages/Customers/CustomersList/CustomersList"
+import CustomersReview from "./pages/Customers/CustomersReview/CustomersReview"
 // import Settings from "./pages/Settings/Settings"
-import Admins from "./pages/Settings/Admin/Index";
-import Categories from "./pages/Settings/Category/Index";
+import Admins from "./pages/Settings/Admin/Admins";
+import AddProduct from "./pages/AddProduct/AddProduct"
+import AddAdmin from "./pages/Settings/Admin/AddAdmin";
+import Categories from "./pages/Settings/Category/Categories";
 import InvoiceInfo from "./pages/InvoiceInfo/InvoiceInfo";
 
 
@@ -42,8 +44,16 @@ const router = createBrowserRouter([
           element: <ProductCategory />,
         },
         {
+          path: "/product_category/add-product",
+          element: <AddProduct root={{text:"Product category", path: "/product_category"}} />,
+        },
+        {
           path: "/product_list",
           element: <ProductList />,
+        },
+        {
+          path: "/product_list/add-product",
+          element: <AddProduct root={{text:"Product list", path: "/product_list"}} />,
         },
         {
           path: "/invoice_detail",
@@ -64,6 +74,10 @@ const router = createBrowserRouter([
         {
           path: "/admins",
           element: <Admins />,
+        },
+        {
+          path: "/admins/add-admin",
+          element: <AddAdmin />,
         },
         {
           path: "/categories",

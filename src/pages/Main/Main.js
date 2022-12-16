@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation} from "react-router-dom";
 import {
   customers_svg,
   customers_svg_active,
@@ -15,16 +15,23 @@ import {
 } from "../../svg/menu";
 import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
-import { notifyLoginSuccess, ToastContainer, ToastContainers } from "../../toastify/Toastify";
+// import { notifyLoginSuccess, ToastContainer, ToastContainers } from "../../toastify/Toastify";
+// import axios from "axios"
 
 function Main() {
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+  // axios.defaults.auth = `Bearer ${JSON.parse(localStorage.getItem("Authorization"))}`
+
+  // console.log(JSON.parse(localStorage.getItem("Authorization")));
 
   const [menus, setMenus] = useState([
     {
       name: "Dashboard",
       url: "/dashboard",
-      isActive: true,
+      isActive: false,
       icon: {
         active: dashboard_svg_active,
         inactive: dashboard_svg,
@@ -108,16 +115,33 @@ function Main() {
       ],
     },
   ]);
-  const token = localStorage.getItem("Authorization")
+
+  // console.log(location.pathname.split("/"));
+
+  useEffect(()=> {
+    setMenus(menus.map((item) => {
+      if(item.items.length === 0){
+        if(item.url.split("/")[1] === location.pathname.split("/")[1]){
+          return {...item, isActive: true}
+        }else{
+          return {...item, isActive: false}
+        }
+      }else{
+        if(item.items.find(link => link.url.split("/")[1] === location.pathname.split("/")[1])){
+          return {...item, isActive: true}
+        }else{
+          return {...item, isActive: false}
+        }
+      }
+    }))
+  }, [location])
 
   useEffect(()=>{
+    const token = localStorage.getItem("Authorization")
     if(!token){
-      return navigate('/login')
+      navigate('/login')
     }
-
-  },[])
-
-
+  })
 
   const menuControl = (name) => {
     setMenus(
@@ -237,7 +261,7 @@ function Main() {
                           <Link
                             to={item.url}
                             key={item.url}
-                            className="hover:text-Primary/03 my-1 cursor-pointer"
+                            className={`hover:text-Primary/03 my-1 cursor-pointer ${location.pathname.split("/")[1] === item.url.split("/")[1] ? "text-Primary/03" : ""}`}
                           >
                             {item.name}
                           </Link>

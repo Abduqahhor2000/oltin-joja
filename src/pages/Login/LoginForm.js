@@ -28,21 +28,22 @@ const LoginForm = () => {
         console.log(formValue);
         UseLogin(formValue)
             .then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     notifyLoginSuccess()
                     setActive(false)
                     console.log(res.data);
                     localStorage.setItem("Authorization", JSON.stringify(res.data))
-                    navigate('/')
+
+                    navigate('/product_category')
                 }
             }
             )
-            .catch((error) => (
-                console.log(error),
-                setActive(false),
+            .catch((error) => {
+                console.log(error)
+                setActive(false)
                 notifyLoginError()
-            )
-            )
+            
+    })
 
     }
 

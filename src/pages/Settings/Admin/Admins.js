@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import { edit_svg, del_svg, del_grey_svg, edit_grey_svg } from "../../../svg/product";
 import admin0 from "../../../images/customer.png"
 import admin1 from "../../../images/customer1.png"
 import admin2 from "../../../images/customer2.png"
 import {UseGetAdmins} from "../../../api/axios"
+import axios from "axios";
 
-function Admins({root, setRoot}) {
+function Admins() {
+  const navigate = useNavigate()
     const [admins, setAdmins] = useState([])
 
     useEffect(() => {
-      UseGetAdmins().then((data)=> {
+      axios.get("users/admins").then((data)=> {
         setAdmins(data.data.entities)
+      }).catch((e)=> {
+        console.log(e);
+        if(e.response.status === 401){
+          // localStorage.removeItem("Authorization")
+          navigate("/login")
+        }
       })
     }, [])
-    
 
   return (
     <div>
@@ -22,7 +30,7 @@ function Admins({root, setRoot}) {
           <div className="bg-white rounded-[10px] grow text-lg leading-6 mr-7 pl-7 py-2 text-Neutral/04">
           Admins
           </div>
-          <span onClick={() => setRoot("add")} className="h-10 flex-none max-w-max cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
+          <span onClick={() => navigate("/admins/add-admin")} className="h-10 flex-none max-w-max cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white">
             {" "}
             <span className="text-3xl absolute inset-y-0 my-0 left-4 font-thin">
               +

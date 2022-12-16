@@ -4,6 +4,7 @@ import Uploader from "./Uploader";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select';
+import { UseAddProduct } from "../../api/axios";
 
 
 const ProductForm = () => {
@@ -16,20 +17,47 @@ const ProductForm = () => {
     const [checkMeasurement, setCheckMeasurement] = useState(false)
     const [checkCategory, setCheckCategory] = useState(false)
 
-    const [values, setValues] = useState({
-        product_name: "",
-        price: "",
-        discount: "",
-        category: "",
-        measurement: "",
-        description: "",
-        image: "",
-        status_available: [],
-        discount_active: []
-    });
+    const [values, setValues] = useState([
+        {
+            product_name: "",
+            category: "",
+            description: "",
+            image: "",
+            status: [],
+            active_discount : [],
+            price: "",
+            discount: "",
+            options: []
 
-    const defaultValueMeasurment = [{ label: "Measurement" }]
-    const defaultValueCategory = [{ label: "Category" }]
+        }
+    ]);
+
+    const [multipleValue, setmultipleValue] = useState([
+        {
+            price: "",
+            measurement_id: "",
+            unit: "",
+        }
+    ])
+    const handleAdd = () => {
+        setmultipleValue([...multipleValue, {
+            price: "",
+            measurement_id: "",
+            unit: "",
+
+        }])
+    }
+
+    const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+    const onHandle = (e, i) => {
+        let newForm = [...multipleValue]
+        newForm[i][e.target.name] = +e.target.value
+        setmultipleValue(newForm)
+    }
+
 
     const data = [
         {
@@ -41,27 +69,34 @@ const ProductForm = () => {
         },
         {
             id: 2,
-            name: "price",
-            item_name: "Price ",
-            type: "number",
-            pattern: "[0-9]{1,5}",
-        },
-        {
-            id: 3,
             name: "discount",
             item_name: "Discount %",
             pattern: "[0-9]{1,5}",
             type: "number",
-        }
+        },
+        {
+            id: 3,
+            name: "price",
+            item_name: "Price",
+            type: "number",
+            pattern: "[0-9]{1,5}",
+        },
+        {
+            id: 4,
+            name: "unit",
+            item_name: "Unit ",
+            type: "number",
+        },
+
     ]
 
     const options_1 = [
-        { value: '1-kategoriya', label: '1-kategoriya' },
-        { value: '2-kategoria', label: '2-kategoria' },
+        { value: '1-kategoriya', label: '1-kategoriya', id:1 },
+        { value: '2-kategoria', label: '2-kategoria',id:2},
     ];
     const options_2 = [
-        { value: 'dona', label: 'dona' },
-        { value: 'kg', label: 'kg' },
+        { value: 'dona', label: 'dona', id: 1 },
+        { value: 'kg', label: 'kg', id: 2 },
 
     ];
 
@@ -71,34 +106,54 @@ const ProductForm = () => {
         setCheckMeasurement(false)
         setCheckCategory(false)
     }, [getImage, measurements, categories])
-
-    const handleSumbit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        values.image = getImage
-        values.measurement = measurements
-        values.category = categories
+        values.photo = getImage
+        // console.log(multipleValue);
+        // console.log(multipleValue.measurement);
+        console.log(multipleValue);
+        values.category_id = categories
+        values.options = multipleValue
+    
+      
+    
+  
 
-        if (!values.image.length) {
-            setCheckFile(true)
-        }
-        if (!values.measurement) {
-            setCheckMeasurement(true)
-        }
-        if (!values.category) {
-            setCheckCategory(true)
-        }
-
-        if (values.image.length && values.measurement.length && values.category.length) {
-        values.status_available = status
-        values.discount_active = discount
-        notify()
-        }
         console.log(values);
-    };
-    const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+        // if (!values.image.length) {
+        //     setCheckFile(true)
+        // }
+        // if (!values.measurement) {
+        //     setCheckMeasurement(true)
+        // }
+        // if (!values.category) {
+        //     setCheckCategory(true)
+        // }
 
+        // if (values.image.length && values.measurement.length && values.category.length) {
+        //     values.status = status
+            values.active_discount  = discount
+            values.status = "available"
+            values.discount = 12
+        //     notify()
+        // }
+        values.name_uz = "asda"
+        values.name_ru = "asdqw"
+        values.name_en = "asdqswe"
+        values.description_uz = "asdsd"
+        values.description_ru = "asdqwsd"
+        values.description_en = "a12sdsd"
+        values.recommended_ids = [12,12,12]
+
+
+        UseAddProduct(values)
+        .then((res)=>console.log(res))
+        .catch((error)=>console.log(error))
+        console.log(values);
+
+        // console.log(values)
     };
+
 
     const colorStyle = {
         control: (styles) => ({ ...styles, border: "none", boxShadow: "none" }),
@@ -108,8 +163,6 @@ const ProductForm = () => {
                 display: "none",
             };
         },
-
-
     }
     const notify = () => toast.success('Successfuly created', {
         position: "top-center",
@@ -122,44 +175,70 @@ const ProductForm = () => {
         theme: "light",
     });
 
+    const defaultValueMeasurment = [{ label: "Measurement" }]
+    const defaultValueCategory = [{ label: "Category" }]
 
     return (
         <>
-          
-            <form onSubmit={handleSumbit} className="grid xl:grid-cols-3 grid-col-1">
-                <div className="grid-cols-2  grid gap-2 xl:w-[97%]  sm:w-[100%]  xl:col-span-2 sm:col-span-3 col-span-3 ">
-                    {data.map((item, index) => {
-                        return (
-                            <BaseInput onChange={onChange}
-                                product={item.item_name}
-                                key={index}
-                                id={item.id}
-                                value={values[item.item_name]}
-                                {...item}
-                            />
-                        )
-                    })}
-                    <div className={`w-[100%] h-[45px] border rounded-lg p-1 ${checkCategory && "border-red-400" || categories.length && 'border-green-300'}`}>
+            <form onSubmit={handleSubmit} className="grid xl:grid-cols-5 grid-col-1">
+                <div className="grid-cols-9  grid gap-2 xl:w-[97%]  sm:w-[100%]  xl:col-span-3 sm:col-span-3 col-span-3 ">
+                    <BaseInput onChange={onChange}
+                        name={data[0].name}
+                        product={data[0].item_name}
+                        type={data[0].type}
+                        value={values[data[0].item_name]}
+                    />
+                    <div className={`w-[100%] col-span-5 h-[45px] border rounded-lg p-1 ${checkCategory && "border-red-400" || categories.length && 'border-green-300'}`}>
                         <Select
                             preffix="none"
                             styles={colorStyle}
                             defaultValue={defaultValueCategory[0]}
-                            onChange={(e) => setCategories(e.value)}
+                            onChange={(e) => setCategories(e.id)}
                             options={options_1}
                         />
                         {checkCategory && <p className="mt-1 text-[12px] text-red-500 ease-in duration-300 ">Category is required</p>}
                     </div>
-                    <div className={`w-[100%] h-[45px] border rounded-lg p-1 ${checkMeasurement && "border-red-400" || measurements.length && 'border-green-300'}`}>
-                        <Select
-                            styles={colorStyle}
-                            defaultValue={defaultValueMeasurment[0]}
-                            onChange={(e) => setMeasurments(e.value)}
-                            options={options_2}
-                            required
-                        />
-                        {checkMeasurement && <p className="mt-1 text-[12px] text-red-500 ease-in duration-300 ">Measurement is required</p>}
+                    <BaseInput onChange={onChange}
+                        name={data[1].name}
+                        product={data[1].item_name}
+                        value={values[data[1].item_name]}
+                        type={data[1].type}
+                    />
+                    {multipleValue.map((item, index) => {
+                        return (
+                            <>
+                                <BaseInput onChange={(e) => onHandle(e, index)}
+                                    name={data[3].name}
+                                    product={data[3].item_name}
+                                    type={data[3].type}
+                                    value={values[data[3].item_name]}
+                                />
+
+                                <div className={`w-[100%] col-span-3 h-[45px] border rounded-lg p-1  ${checkMeasurement && "border-red-400" || measurements.length && 'border-green-300'}`}>
+                                    <Select
+                                        styles={colorStyle}
+                                        defaultValue={defaultValueMeasurment[0]}
+                                        onChange={(e) => onHandle({ target: { name: 'measurement_id', value: e.id } }, index)}
+                                        options={options_2}
+                                        required
+
+                                    />
+                                    {checkMeasurement && <p className="mt-1 text-[12px] text-red-500 ease-in duration-300 ">Measurement is required</p>}
+                                </div>
+                                <BaseInput onChange={(e,) => onHandle(e, index)}
+                                    name={data[2].name}
+                                    product={data[2].item_name}
+                                    value={values[data[2].item_name]}
+                                    type={data[2].type}
+                                />
+                            </>
+                        )
+                    })}
+
+                    <div className="col-span-7 flex justify-end  ">
+                        <button onClick={() => handleAdd()} className="h-[43px] px-5 border rounded-lg text-[#9A9A9A]">+Add option</button>
                     </div>
-                    <div className="w-full col-span-2  h-[150px] relative">
+                    <div className="w-full col-span-7  h-[150px] relative">
                         <textarea required name="description" onChange={onChange} className="peer w-full h-full valid:border-green-300 focus:border-Primary/03  border outline-none rounded-lg p-3 resize-none" />
                         <span className="text-sm px-2  absolute top-[10px] left-3 pointer-events-none  peer-valid:translate-y-[-20px] peer-focus:translate-y-[-20px] peer-focus:translate-x-[-8px]  peer-valid:translate-x-[-8px] peer-valid:text-[13px] peer-focus:text-[13px] ease-linear duration-[0.2s] text-[#9A9A9A] bg-white">Description</span>
                         <span className="absolute right-4 top-[14px]  peer-valid:opacity-100 opacity-0">
@@ -169,7 +248,7 @@ const ProductForm = () => {
                         </span>
                     </div>
                 </div>
-                <div className="xl:col-span-1 col-span-3 xl:mt-0 mt-10">
+                <div className="xl:col-span-2 col-span-2 xl:mt-0 mt-10">
                     <Uploader setGetImage={setGetImage} checkFile={checkFile} />
                     <div className="w-full h-auto  mt-5">
                         <div className="flex justify-between border-b-[1px] px-1 py-3">
@@ -190,7 +269,7 @@ const ProductForm = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-3  justify-end grid mt-10">
+                <div className="col-span-7  justify-end grid mt-10">
                     <div className="flex justify-between w-[280px]">
                         <button className="w-32 h-10 border rounded-md p-2">Cancel</button>
                         <button className="w-32 h-10 border rounded-md bg-[#FFA101] p-2 text-white">Save and add</button>

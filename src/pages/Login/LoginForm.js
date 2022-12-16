@@ -32,7 +32,7 @@ const LoginForm = () => {
                     notifyLoginSuccess()
                     setActive(false)
                     console.log(res.data);
-                    localStorage.setItem("Authorization", res.data)
+                    localStorage.setItem("Authorization", JSON.stringify(res.data))
                     navigate('/')
                 }
             }
@@ -81,7 +81,7 @@ const LoginForm = () => {
             <div className='flex justify-end w-full mt-5'><p className='underline-offset-1 underline cursor-pointer '>Forgot password</p></div>
             <button
                 htmltype="submit"
-                className={`${active == true ? "  pointer-events-none  " : ""} bg-Primary/03 cursor-pointer w-full h-12 rounded-lg text-white text-lg`} >
+                className={`${active == true ? "pointer-events-none" : ""} bg-Primary/03 cursor-pointer w-full h-12 rounded-lg text-white text-lg`} >
                         {active == true ? <SyncLoader  loading={active} color={'#fff'} size={10}/> : <p>Sign in</p>}
                 </button>
             <ToastContainer

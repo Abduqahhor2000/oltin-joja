@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UsePostMediaAddProduct } from "../../api/axios";
 import Content from "./UploaderContent";
 
 
 const Uploader = ({ setGetImage, checkFile, }) => {
     const [images, setImages] = useState([]);
     const [imageUrls, setImageUrls] = useState([]);
-
+        const token = localStorage.getItem("Authorization")
     useEffect(() => {
         if (images.length < 1) return;
         const newImagesUrl = [];
@@ -44,7 +45,6 @@ const Uploader = ({ setGetImage, checkFile, }) => {
         setImages([...e.target.files])
         uploadFile(e.target.files[0])
         console.log(e.target.files);
-
     }
 
     function uploadFile(file) {
@@ -52,13 +52,9 @@ const Uploader = ({ setGetImage, checkFile, }) => {
         formData.append("associated_with", "products");
         formData.append("usage", "product");
         formData.append("file", file);
-
-        axios.post('https://food-delivery-production.up.railway.app/v1/images/upload', formData)
-            .then((res) => {
-                
-                setGetImage(res?.data.path)
-            })
-            .catch((error) => console.log(error))
+        UsePostMediaAddProduct(formData)
+        .then((res)=>setGetImage(res?.data?.path))
+        .catch(error => console.log(error))
     }
 
     return (

@@ -1,18 +1,14 @@
-import { useState } from "react";
-
 
 const BaseInput = (props) => {
     const { onChange, item_name, id, ...inputProps } = props;
-    // console.log(props);
 
     return (
         <>
-            <div className={`inputBox  relative w-full h-[45px] ${props.product === "Product name" ? "col-span-9"  : props.product === "Discount %" ? "col-span-4" : props.product === "Price" ? "col-span-3" : props.product === "Unit" ? "col-span-1" : null}`}>
+            <div className={`inputBox  relative w-full h-[45px] ${props.product === "Product name" ? "col-span-10"  : props.product === "Discount %" ? "col-span-4" : props.product === "Price" ? "col-span-4 " : props.product === "Unit" ? "col-span-2" : "col-span-3"}`}>
                 <input
                     name={props.name}
                     key={id}
                     autoComplete="off"
-                    // {...inputProps}
                     type={props.type}
                     onKeyDown={props.type == "number" ? (evt) => evt.key === 'e' && evt.preventDefault() : null}
                     onChange={onChange}

@@ -60,11 +60,11 @@ const Uploader = ({ setGetImage, checkFile, }) => {
     return (
         <>
             <div className="border w-full h-auto rounded-md">
-                <p className="mt-5 ml-5 text-[#6F767E]">Product image</p>
-                <div className="p-5">
+                <p className="mt-2 ml-5 text-[#6F767E]">Product image</p>
+                <div className="p-2">
                     <label  >
                         <input className='upload_input hidden pointer-events:none' type="file" accept="image/*" onChange={onImageChange} />
-                        <div className={`mx-auto h-36 border-dashed border-2 rounded-lg flex justify-center items-center ${checkFile === true ? 'border-red-400' : ""}`}>
+                        <div className={`mx-auto 2xl:h-52 h-36 border-dashed border-2 rounded-lg flex justify-center items-center ${checkFile === true ? 'border-red-400' : ""}`}>
                             {imageUrls.length > 0 ?
                                 imageUrls.map((imageSrc, index) => (
                                     <img key={index} src={imageSrc} className="w-full h-full object-contain z-50" />)) : <Content />

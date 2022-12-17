@@ -116,26 +116,6 @@ function Main() {
     },
   ]);
 
-  // console.log(location.pathname.split("/"));
-
-  useEffect(()=> {
-    setMenus(menus.map((item) => {
-      if(item.items.length === 0){
-        if(item.url.split("/")[1] === location.pathname.split("/")[1]){
-          return {...item, isActive: true}
-        }else{
-          return {...item, isActive: false}
-        }
-      }else{
-        if(item.items.find(link => link.url.split("/")[1] === location.pathname.split("/")[1])){
-          return {...item, isActive: true}
-        }else{
-          return {...item, isActive: false}
-        }
-      }
-    }))
-  }, [location])
-
   useEffect(()=>{
     const token = localStorage.getItem("Authorization")
     if(!token){

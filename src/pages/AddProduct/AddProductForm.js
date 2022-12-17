@@ -84,7 +84,7 @@ const ProductForm = () => {
         {
             id: 4,
             name: "unit",
-            item_name: "Unit ",
+            item_name: "Unit",
             type: "number",
         },
 
@@ -181,14 +181,25 @@ const ProductForm = () => {
     return (
         <>
             <form onSubmit={handleSubmit} className="grid xl:grid-cols-5 grid-col-1">
-                <div className="grid-cols-9  grid gap-2 xl:w-[97%]  sm:w-[100%]  xl:col-span-3 sm:col-span-3 col-span-3 ">
+                <div className="grid-cols-10  grid gap-2 xl:w-[97%]  sm:w-[100%]  xl:col-span-3 sm:col-span-3 col-span-3 ">
                     <BaseInput onChange={onChange}
                         name={data[0].name}
                         product={data[0].item_name}
                         type={data[0].type}
                         value={values[data[0].item_name]}
                     />
-                    <div className={`w-[100%] col-span-5 h-[45px] border rounded-lg p-1 ${checkCategory && "border-red-400" || categories.length && 'border-green-300'}`}>
+                       <BaseInput onChange={onChange}
+                        name={data[0].name}
+                        product={data[0].item_name}
+                        type={data[0].type}
+                        value={values[data[0].item_name]}
+                    />   <BaseInput onChange={onChange}
+                    name={data[0].name}
+                    product={data[0].item_name}
+                    type={data[0].type}
+                    value={values[data[0].item_name]}
+                />
+                    <div className={`w-[100%] col-span-6 h-[45px] border rounded-lg p-1 ${checkCategory && "border-red-400" || categories.length && 'border-green-300'}`}>
                         <Select
                             preffix="none"
                             styles={colorStyle}
@@ -214,7 +225,7 @@ const ProductForm = () => {
                                     value={values[data[3].item_name]}
                                 />
 
-                                <div className={`w-[100%] col-span-3 h-[45px] border rounded-lg p-1  ${checkMeasurement && "border-red-400" || measurements.length && 'border-green-300'}`}>
+                                <div className={`w-[100%] col-span-4 h-[45px] border rounded-lg p-1  ${checkMeasurement && "border-red-400" || measurements.length && 'border-green-300'}`}>
                                     <Select
                                         styles={colorStyle}
                                         defaultValue={defaultValueMeasurment[0]}
@@ -235,7 +246,7 @@ const ProductForm = () => {
                         )
                     })}
 
-                    <div className="col-span-7 flex justify-end  ">
+                    <div className="col-span-10 flex justify-end  ">
                         <button onClick={() => handleAdd()} className="h-[43px] px-5 border rounded-lg text-[#9A9A9A]">+Add option</button>
                     </div>
                     <div className="w-full col-span-7  h-[150px] relative">

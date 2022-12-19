@@ -18,10 +18,10 @@ function createInstance(baseURL, type, authorization) {
     async (res) => res,
     (error) => {
       console.log(error)
-        if(error.response?.status === 401){
-            localStorage.clear()
-            window.location.reload()
-        }
+        // if(error.response?.status === 401){
+        //     localStorage.clear()
+        //     window.location.reload()
+        // }
         return Promise.reject(error)
     }
   )

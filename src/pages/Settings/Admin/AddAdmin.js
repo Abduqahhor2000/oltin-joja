@@ -92,11 +92,17 @@ function AddAdmin() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     usePost("/v1/users/admin", values)
       .then((data) => {
-        notification()
+        notification("success", "Qoralama omadli saqlandi")
         navigate("/admins")
         // console.log(data)
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>{
+        if(e.response.status === 409){
+          notification("error", "Bu raqam oldin ro'xatdan o'tgan");
+        }else{
+          notification("error", "Saqlashda xatolik bo'ldi");
+        }
+      })
   }
 
   function selectFile(file) {

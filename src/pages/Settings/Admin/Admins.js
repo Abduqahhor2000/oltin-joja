@@ -15,6 +15,7 @@ import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { addAdmins, clearAdmins } from "../../../store/admins/admins";
 import { addAdmin, clearAdmin } from "../../../store/admins/edit_admin";
+import Pagination from "../../pagination/likeAntd"
 // import {UseGetAdmins} from "../../../api/axios"
 // import axios from "axios";
 
@@ -113,7 +114,7 @@ function Admins() {
                       {admin?.avatar ? (
                         <img
                           className="w-10 h-10 rounded-full object-cover"
-                          src={`https://food-delivery-production.up.railway.app/${admin?.avatar}`}
+                          src={`${process.env.REACT_APP_BASE_URL}/${admin?.avatar}`}
                           alt=""
                         />
                       ) : (
@@ -161,6 +162,9 @@ function Admins() {
             </tbody>
           </table>
           {/* <div id="next-product"></div> */}
+        </div>
+        <div>
+          <Pagination/>
         </div>
       </div>
       {isOpen ? (

@@ -4,7 +4,7 @@ const InvoiceInfo = () => {
 
     return(
         <>
-            <div className='w-[90%] mx-auto'>
+            <div className='pb-5 px-10'>
             <div className='w-full flex items-center bg-white px-5 h-12 rounded-xl  mt-5'>
                 <div className='flex justify-between items-center w-[230px] '>
                     <h1 className='text-Primary/03 text-lg '>Invoice detail</h1>

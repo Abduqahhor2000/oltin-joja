@@ -2,7 +2,7 @@
 const InfoCost = ({ infoData }) => {
     return (
         <>
-            <div className="w-full h-[40vh] overflow-y-auto   mt-10">
+            <div className="w-full h-[35vh] overflow-y-auto   mt-10">
                 <table className="w-full ">
                     <thead>
                         <tr className="text-[#6F767E] h-10 grid grid-cols-11 border-b-[1px] w-full items-start">

@@ -3,9 +3,10 @@ import {useNavigate} from "react-router-dom"
 // import { UsePostAdmin, UsePostImg } from "../../../api/axios";
 import { img_svg } from "../../../svg/admin";
 import Input from "./Components/Input";
-import ReactSelect from "./Components/Select";
+import ReactSelect from "./Components/EditSelect";
 import { usePost } from "../../../api/http";
-import {notification } from "../../../toastify/Toastify";
+import { notification } from "../../../toastify/Toastify";
+import { useSelector } from "react-redux";
 
 
 let position = [
@@ -16,16 +17,18 @@ let position = [
 const SUPPORTED_FORMATS = ["jpg", "png", "webp"];
 
 function AddAdmin() {
+  const admin = useSelector(state => state.axmad_joja.admin.admin) 
+  console.log(admin)
   const navigate = useNavigate()
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    password: "",
-    full_name: "",
-    phone: "",
+    password: admin.password,
+    full_name: admin.full_name,
+    phone: admin.phone,
     // email: "",
-    avatar: "",
-    role: "",
+    avatar: admin.avatar,
+    role: admin.role,
   });
   const [loadingFile, setLoadingFile] = useState(0);
   const [fileUploading, setFileUploading] = useState(false);

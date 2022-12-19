@@ -15,7 +15,7 @@ import {
 } from "../../svg/menu";
 import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
-// import { notifyLoginSuccess, ToastContainer, ToastContainers } from "../../toastify/Toastify";
+import { ToastContainers } from "../../toastify/Toastify";
 // import axios from "axios"
 
 function Main() {
@@ -107,11 +107,7 @@ function Main() {
         {
           url: "/admins",
           name: "Admins",
-        },
-        {
-          url: "/categories",
-          name: "Categories",
-        },
+        }
       ],
     },
   ]);
@@ -375,8 +371,9 @@ function Main() {
           </div>
         </div>
 
-        <Outlet  dadada={"daaa"} />
+        <Outlet />
       </div>
+      <ToastContainers />
     </div>
   );
 }

@@ -7,7 +7,7 @@ function createInstance(baseURL, type, authorization) {
   axiosInstance.interceptors.request.use(
     (config) => {
       if (authorization && config.headers) {
-        config.headers.Authorization = `Bearer ${localStorage.getItem('Authorization')}`
+        config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('Authorization'))}`
       }
       return config
     },
@@ -17,6 +17,7 @@ function createInstance(baseURL, type, authorization) {
   axiosInstance.interceptors.response.use(
     async (res) => res,
     (error) => {
+      console.log(error)
         if(error.response?.status === 401){
             localStorage.clear()
             window.location.reload()

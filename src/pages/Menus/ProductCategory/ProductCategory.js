@@ -144,7 +144,7 @@ function ProductCategory() {
               );
             })}
           </div>
-          <span
+          {/* <span
             onClick={() => navigate("/product_category/add-product")}
             className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white"
           >
@@ -153,7 +153,7 @@ function ProductCategory() {
               +
             </span>{" "}
             Add
-          </span>
+          </span> */}
         </div>
         <div className="pt-2.5 flex justify-between flex-wrap">
           {products.map((product) => {
@@ -183,31 +183,31 @@ function ProductCategory() {
                 </div>
                 <div className="flex justify-between items-center pl-1">
                   <span
-                    onClick={() => cantrolStock(product.id)}
-                    className={`w-[calc(100%-100px)] h-10 rounded-[10px] select-none ${
+                    // onClick={() => cantrolStock(product.id)}
+                    className={`w-full h-10 rounded-[10px] ${
                       product.inStock
-                        ? "bg-Primary/03 hover:bg-hoverButton"
-                        : "bg-Primary/03/50 hover:bg-Primary/03/70"
-                    } cursor-pointer text-white font-semibold duration-200 flex justify-center items-center`}
+                        ? "bg-Primary/03"
+                        : "bg-Primary/03/50"
+                    } text-white font-semibold flex justify-center items-center`}
                   >
                     {product.inStock ? "In Stock" : "Out of Stock"}
                   </span>
-                  <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
+                  {/* <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
                     <span className="hidden group-hover:block">
                       {edit_svg}
                     </span>
                     <span className="block group-hover:hidden">
                       {edit_grey_svg}
                     </span>
-                  </span>
-                  <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
+                  </span> */}
+                  {/* <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
                     <span className="hidden group-hover:block">
                       {del_svg}
                     </span>
                     <span className="block group-hover:hidden">
                       {del_grey_svg}
                     </span>
-                  </span>
+                  </span> */}
                 </div>
               </div>
             );

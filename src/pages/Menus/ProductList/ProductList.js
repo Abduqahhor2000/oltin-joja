@@ -155,12 +155,12 @@ function ProductList() {
     },
   ]);
 
-  useEffect(() => {
-    const next_product = document.querySelector("#next-product");
-    next_product.addEventListener("popstate", function (event) {
-      console.log("hey");
-    });
-  }, []);
+  // useEffect(() => {
+  //   const next_product = document.querySelector("#next-product");
+  //   next_product.addEventListener("popstate", function (event) {
+  //     console.log("hey");
+  //   });
+  // }, []);
 
   const selectCategory = (id) => {
     setCategories(
@@ -174,17 +174,17 @@ function ProductList() {
     );
   };
 
-  const cantrolStock = (id) => {
-    setProducts(
-      products.map((product) => {
-        if (product.id === id) {
-          return { ...product, inStock: !product.inStock };
-        } else {
-          return product;
-        }
-      })
-    );
-  };
+  // const cantrolStock = (id) => {
+  //   setProducts(
+  //     products.map((product) => {
+  //       if (product.id === id) {
+  //         return { ...product, inStock: !product.inStock };
+  //       } else {
+  //         return product;
+  //       }
+  //     })
+  //   );
+  // };
 
   return (
     <div>
@@ -207,7 +207,7 @@ function ProductList() {
               );
             })}
           </div>
-          <span
+          {/* <span
             onClick={() => navigate("/product_list/add-product")}
             className="h-10 cursor-pointer rounded-xl bg-white py-2.5 pr-5 relative pl-12 hover:bg-Primary/03 duration-200 select-none active:bg-hoverButton hover:text-white"
           >
@@ -216,7 +216,7 @@ function ProductList() {
               +
             </span>{" "}
             Add
-          </span>
+          </span> */}
         </div>
         {/* <div className="bg-white rounded-[10px] uppercase text-lg leading-6 font-medium pl-5 py-2 text-Neutral/04 mb-5">
           Product List
@@ -274,12 +274,12 @@ function ProductList() {
                     <td className="py-3 min-w-[220px]">{product.name}</td>
                     <td className="py-2 flex justify-center min-w-[180px]">
                       <span
-                        onClick={() => cantrolStock(product.id)}
-                        className={`w-[110px] h-9 rounded-[10px] select-none ${
+                        // onClick={() => cantrolStock(product.id)}
+                        className={`w-[110px] h-9 rounded-[10px] ${
                           product.inStock
-                            ? "bg-Primary/03 hover:bg-hoverButton"
-                            : "bg-Primary/03/50 hover:bg-Primary/03/70"
-                        } cursor-pointer text-sm text-white font-semibold duration-200 flex justify-center items-center`}
+                            ? "bg-Primary/03"
+                            : "bg-Primary/03/50"
+                        } text-sm text-white font-semibold flex justify-center items-center`}
                       >
                         {product.inStock ? "In Stock" : "Out of Stock"}
                       </span>
@@ -287,14 +287,14 @@ function ProductList() {
                     <td className="py-3 min-w-[100px]">{product.price}</td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
                       <div className="flex w-full justify-between">
-                        <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
+                        {/* <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
                           <span className="hidden group-hover:block">
                             {edit_svg}
                           </span>
                           <span className="block group-hover:hidden">
                             {edit_grey_svg}
                           </span>
-                        </span>
+                        </span> */}
                         <span className="p-1 group cursor-pointer ml-2 mr-1 w-8 h-8 select-none pt-1.5">
                           <span className="hidden group-hover:block">
                             {send_svg}
@@ -303,14 +303,14 @@ function ProductList() {
                             {send_grey_svg}
                           </span>
                         </span>
-                        <span className="p-1 cursor-pointer group select-none">
+                        {/* <span className="p-1 cursor-pointer group select-none">
                           <span className="hidden group-hover:block">
                             {del_svg}
                           </span>
                           <span className="block group-hover:hidden">
                             {del_grey_svg}
                           </span>
-                        </span>
+                        </span> */}
                       </div>
                     </td>
                   </tr>
@@ -318,7 +318,7 @@ function ProductList() {
               })}
             </tbody>
           </table>
-          <div id="next-product"></div>
+          {/* <div id="next-product"></div> */}
         </div>
       </div>
     </div>

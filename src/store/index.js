@@ -1,5 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import userInfo from "./admin/userInfo";
+import userInfo from "./auth/userInfo";
+import adminsInfo from "./admins/admins";
+import adminInfo from "./admins/edit_admin";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -14,6 +16,8 @@ import {
 
 const rootReducer = combineReducers({
   user: userInfo,
+  admins: adminsInfo,
+  admin: adminInfo,
 });
 
 const persistConfig = {

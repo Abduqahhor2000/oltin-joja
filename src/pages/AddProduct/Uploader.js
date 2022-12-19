@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UsePostMediaAddProduct } from "../../api/axios";
 import Content from "./UploaderContent";
 
 
 const Uploader = ({ setGetImage, checkFile, }) => {
     const [images, setImages] = useState([]);
     const [imageUrls, setImageUrls] = useState([]);
-
+        const token = localStorage.getItem("Authorization")
     useEffect(() => {
         if (images.length < 1) return;
         const newImagesUrl = [];
@@ -44,7 +45,6 @@ const Uploader = ({ setGetImage, checkFile, }) => {
         setImages([...e.target.files])
         uploadFile(e.target.files[0])
         console.log(e.target.files);
-
     }
 
     function uploadFile(file) {
@@ -52,23 +52,19 @@ const Uploader = ({ setGetImage, checkFile, }) => {
         formData.append("associated_with", "products");
         formData.append("usage", "product");
         formData.append("file", file);
-
-        axios.post('https://food-delivery-production.up.railway.app/v1/images/upload', formData)
-            .then((res) => {
-                
-                setGetImage(res?.data.path)
-            })
-            .catch((error) => console.log(error))
+        UsePostMediaAddProduct(formData)
+        .then((res)=>setGetImage(res?.data?.path))
+        .catch(error => console.log(error))
     }
 
     return (
         <>
             <div className="border w-full h-auto rounded-md">
-                <p className="mt-5 ml-5 text-[#6F767E]">Product image</p>
-                <div className="p-5">
+                <p className="mt-2 ml-5 text-[#6F767E]">Product image</p>
+                <div className="p-2">
                     <label  >
                         <input className='upload_input hidden pointer-events:none' type="file" accept="image/*" onChange={onImageChange} />
-                        <div className={`mx-auto h-36 border-dashed border-2 rounded-lg flex justify-center items-center ${checkFile === true ? 'border-red-400' : ""}`}>
+                        <div className={`mx-auto 2xl:h-52 h-36 border-dashed border-2 rounded-lg flex justify-center items-center ${checkFile === true ? 'border-red-400' : ""}`}>
                             {imageUrls.length > 0 ?
                                 imageUrls.map((imageSrc, index) => (
                                     <img key={index} src={imageSrc} className="w-full h-full object-contain z-50" />)) : <Content />

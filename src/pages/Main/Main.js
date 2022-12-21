@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, Link, useNavigate, useLocation} from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   customers_svg,
   customers_svg_active,
@@ -21,7 +21,7 @@ import { ToastContainers } from "../../toastify/Toastify";
 function Main() {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
   // axios.defaults.auth = `Bearer ${JSON.parse(localStorage.getItem("Authorization"))}`
 
@@ -107,37 +107,44 @@ function Main() {
         {
           url: "/admins",
           name: "Admins",
-        }
+        },
       ],
     },
   ]);
 
   // console.log(location.pathname.split("/"));
 
-  useEffect(()=> {
-    setMenus(menus.map((item) => {
-      if(item.items.length === 0){
-        if(item.url.split("/")[1] === location.pathname.split("/")[1]){
-          return {...item, isActive: true}
-        }else{
-          return {...item, isActive: false}
+  useEffect(() => {
+    setMenus(
+      menus.map((item) => {
+        if (item.items.length === 0) {
+          if (item.url.split("/")[1] === location.pathname.split("/")[1]) {
+            return { ...item, isActive: true };
+          } else {
+            return { ...item, isActive: false };
+          }
+        } else {
+          if (
+            item.items.find(
+              (link) =>
+                link.url.split("/")[1] === location.pathname.split("/")[1]
+            )
+          ) {
+            return { ...item, isActive: true };
+          } else {
+            return { ...item, isActive: false };
+          }
         }
-      }else{
-        if(item.items.find(link => link.url.split("/")[1] === location.pathname.split("/")[1])){
-          return {...item, isActive: true}
-        }else{
-          return {...item, isActive: false}
-        }
-      }
-    }))
-  }, [location])
+      })
+    );
+  }, [location]);
 
-  useEffect(()=>{
-    const token = localStorage.getItem("Authorization")
-    if(!token){
-      navigate('/login')
+  useEffect(() => {
+    const token = localStorage.getItem("Authorization");
+    if (!token) {
+      navigate("/login");
     }
-  })
+  });
 
   const menuControl = (name) => {
     setMenus(
@@ -161,89 +168,93 @@ function Main() {
           {menus.map((menu, index) => {
             return (
               <div key={index} className="mb-2">
-                {
-                  menu.url ? 
+                {menu.url ? (
                   <Link
-                  to={menu.url}
-                  onClick={() => menuControl(menu.name)}
-                  className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
-                    menu.isActive
-                      ? "bg-menuBG border-menuLine"
-                      : "bg-white border-transparent"
-                  }`}
-                >
-                  <div className="relative flex justify-between items-center w-full pr-7">
-                    <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
-                      <span className="hidden group-hover:block">
-                        {menu.icon.active}
-                      </span>
-                      <span className="block group-hover:hidden">
-                        {menu.isActive ? menu.icon.active : menu.icon.inactive}
-                      </span>
-                    </span>
-                    <span
-                      className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
-                        menu.isActive
-                          ? "text-Primary/03"
-                          : "text-Neutral/Shades/04-75%"
-                      }`}
-                    >
-                      {menu.name}
-                    </span>
-                    {menu.items.length ? (
-                      <span
-                        className={`group-hover:stroke-Primary/03 duration-200 ${
-                          menu.isActive
-                            ? "stroke-Primary/03 rotate-0"
-                            : "stroke-Neutral/Shades/04-75% rotate-180"
-                        }`}
-                      >
-                        {menu_arrow_svg}
-                      </span>
-                    ) : null}
-                  </div>
-                </Link> 
-                :  <div
-                onClick={() => menuControl(menu.name)}
-                className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
-                  menu.isActive
-                    ? "bg-menuBG border-menuLine"
-                    : "bg-white border-transparent"
-                }`}
-              >
-                <div className="relative flex justify-between items-center w-full pr-7">
-                  <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
-                    <span className="hidden group-hover:block">
-                      {menu.icon.active}
-                    </span>
-                    <span className="block group-hover:hidden">
-                      {menu.isActive ? menu.icon.active : menu.icon.inactive}
-                    </span>
-                  </span>
-                  <span
-                    className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
+                    to={menu.url}
+                    onClick={() => menuControl(menu.name)}
+                    className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
                       menu.isActive
-                        ? "text-Primary/03"
-                        : "text-Neutral/Shades/04-75%"
+                        ? "bg-menuBG border-menuLine"
+                        : "bg-white border-transparent"
                     }`}
                   >
-                    {menu.name}
-                  </span>
-                  {menu.items.length ? (
-                    <span
-                      className={`group-hover:stroke-Primary/03 duration-200 ${
-                        menu.isActive
-                          ? "stroke-Primary/03 rotate-0"
-                          : "stroke-Neutral/Shades/04-75% rotate-180"
-                      }`}
-                    >
-                      {menu_arrow_svg}
-                    </span>
-                  ) : null}
-                </div>
-              </div> 
-                }
-                
+                    <div className="relative flex justify-between items-center w-full pr-7">
+                      <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
+                        <span className="hidden group-hover:block">
+                          {menu.icon.active}
+                        </span>
+                        <span className="block group-hover:hidden">
+                          {menu.isActive
+                            ? menu.icon.active
+                            : menu.icon.inactive}
+                        </span>
+                      </span>
+                      <span
+                        className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
+                          menu.isActive
+                            ? "text-Primary/03"
+                            : "text-Neutral/Shades/04-75%"
+                        }`}
+                      >
+                        {menu.name}
+                      </span>
+                      {menu.items.length ? (
+                        <span
+                          className={`group-hover:stroke-Primary/03 duration-200 ${
+                            menu.isActive
+                              ? "stroke-Primary/03 rotate-0"
+                              : "stroke-Neutral/Shades/04-75% rotate-180"
+                          }`}
+                        >
+                          {menu_arrow_svg}
+                        </span>
+                      ) : null}
+                    </div>
+                  </Link>
+                ) : (
+                  <div
+                    onClick={() => menuControl(menu.name)}
+                    className={`group flex pl-12 items-center h-10 cursor-pointer border-l-2 border-solid duration-200 ${
+                      menu.isActive
+                        ? "bg-menuBG border-menuLine"
+                        : "bg-white border-transparent"
+                    }`}
+                  >
+                    <div className="relative flex justify-between items-center w-full pr-7">
+                      <span className="absolute w-min h-min inset-y-0 -translate-x-full my-auto -left-2">
+                        <span className="hidden group-hover:block">
+                          {menu.icon.active}
+                        </span>
+                        <span className="block group-hover:hidden">
+                          {menu.isActive
+                            ? menu.icon.active
+                            : menu.icon.inactive}
+                        </span>
+                      </span>
+                      <span
+                        className={`text-[15px]  group-hover:text-Primary/03 font-medium mt-0.5 ${
+                          menu.isActive
+                            ? "text-Primary/03"
+                            : "text-Neutral/Shades/04-75%"
+                        }`}
+                      >
+                        {menu.name}
+                      </span>
+                      {menu.items.length ? (
+                        <span
+                          className={`group-hover:stroke-Primary/03 duration-200 ${
+                            menu.isActive
+                              ? "stroke-Primary/03 rotate-0"
+                              : "stroke-Neutral/Shades/04-75% rotate-180"
+                          }`}
+                        >
+                          {menu_arrow_svg}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
+
                 {menu.items.length ? (
                   <div
                     style={{ height: `${menu.items.length * 32 + 8}px` }}
@@ -257,7 +268,12 @@ function Main() {
                           <Link
                             to={item.url}
                             key={item.url}
-                            className={`hover:text-Primary/03 my-1 cursor-pointer ${location.pathname.split("/")[1] === item.url.split("/")[1] ? "text-Primary/03" : ""}`}
+                            className={`hover:text-Primary/03 my-1 cursor-pointer ${
+                              location.pathname.split("/")[1] ===
+                              item.url.split("/")[1]
+                                ? "text-Primary/03"
+                                : ""
+                            }`}
                           >
                             {item.name}
                           </Link>
@@ -356,16 +372,25 @@ function Main() {
               type="text"
               placeholder="Search here"
             />
-            <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">{search_svg}</span>
+            <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
+              {search_svg}
+            </span>
           </span>
-          <span className="p-1 block cursor-pointer relative ml-9">
-            <span className="h-3 w-3 bg-Primary/03 absolute top-1 right-1 rounded-full border-[2px] border-solid border-white"></span>
-            {message_svg}
-          </span>
+          <Link to={"/messages"} key={1}>
+            <span
+              className="p-1 block cursor-pointer relative ml-9"
+            >
+              <span className="h-3 w-3 bg-Primary/03 absolute top-1 right-1 rounded-full border-[2px] border-solid border-white"></span>
+              {message_svg}
+            </span>
+          </Link>
+          <Link to={"/notification"} key={2}>
           <span className="p-1 block cursor-pointer relative ml-8">
             <span className="h-3 w-3 bg-Primary/03 absolute top-1 right-1 rounded-full border-[2px] border-solid border-white"></span>
             {notif_svg}
           </span>
+          </Link>
+       
           <div className="ml-[26px] h-11 w-11 rounded-full">
             <img src={avatar} alt="" className="w-full h-full" />
           </div>

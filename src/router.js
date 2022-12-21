@@ -18,6 +18,8 @@ import AddAdmin from "./pages/Settings/Admin/AddAdmin";
 import EditAdmin from "./pages/Settings/Admin/EditAdmin";
 // import Categories from "./pages/Settings/Category/Categories";
 import InvoiceInfo from "./pages/InvoiceInfo/InvoiceInfo";
+import Message from "./pages/Message/Message";
+import Notification from "./pages/Notification/Notification";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +91,14 @@ const router = createBrowserRouter([
         path: "/invoice_info",
         element: <InvoiceInfo />,
       },
+      {
+        path:"/messages",
+        element:<Message />
+      },
+      {
+        path:"/notification",
+        element:<Notification />
+      }
     ],
   },
   {

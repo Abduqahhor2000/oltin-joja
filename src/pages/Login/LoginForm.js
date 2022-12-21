@@ -38,6 +38,7 @@ const LoginForm = () => {
         setActive(false);
         // console.log(res.data);
         localStorage.setItem("Authorization", JSON.stringify(res.data.token));
+        localStorage.setItem("refresh", JSON.stringify(res.data.refreshToken));
         navigate("/product_category");
       })
       .catch((error) => {

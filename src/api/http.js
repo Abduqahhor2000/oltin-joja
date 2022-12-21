@@ -17,11 +17,35 @@ function createInstance(baseURL, type, authorization) {
   axiosInstance.interceptors.response.use(
     async (res) => res,
     (error) => {
-      console.log(error)
-        // if(error.response?.status === 401){
-        //     localStorage.clear()
-        //     window.location.reload()
-        // }
+      const refreshToken = localStorage.getItem('refreshToken')
+      if (error.response?.status === 401 && refreshToken) {
+        axios
+          .post(
+            env.REACT_APP_BASE_URL + '/v1/auth/token/refresh',
+            { refreshToken },
+            {
+              headers: {
+                ...headers,
+                Authorization: `Bearer ${refreshToken}`
+              }
+            }
+          )
+          .then(({ data }) => {
+            localStorage.setItem('Authorization', data.access_token)
+            window.location.reload()
+          })
+          .catch(() => {
+            localStorage.clear()
+            window.location.reload()
+          })
+      } else {
+        const store = mainStore()
+        store.setNotification({
+          autoclose: true,
+          showNotification: true,
+          title: ErrorHandler(error)
+        })
+      }
         return Promise.reject(error)
     }
   )

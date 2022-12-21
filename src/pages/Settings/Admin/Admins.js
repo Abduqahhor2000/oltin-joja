@@ -164,7 +164,7 @@ function Admins() {
           {/* <div id="next-product"></div> */}
         </div>
         <div>
-          <Pagination/>
+          <Pagination totalItem={1000} changePage={(currentPage, pageSize, totalItem)=> console.log(currentPage, pageSize, totalItem)}/>
         </div>
       </div>
       {isOpen ? (

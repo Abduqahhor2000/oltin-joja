@@ -8,152 +8,20 @@ import {
   send_grey_svg,
   send_svg,
 } from "../../../svg/product";
-import baguette from "../../../images/baguette.png";
-import delicious from "../../../images/delicious.png";
-import dumplings from "../../../images/dumplings.png";
-import food from "../../../images/food.png";
-import fried from "../../../images/fried.png";
-import monika from "../../../images/monika.png";
+import { usePost } from "../../../api/http";
+// import baguette from "../../../images/baguette.png";
+// import delicious from "../../../images/delicious.png";
+// import dumplings from "../../../images/dumplings.png";
+// import food from "../../../images/food.png";
+// import fried from "../../../images/fried.png";
+// import monika from "../../../images/monika.png";
 
 function ProductList() {
   const navigate = useNavigate()
-  const [categories, setCategories] = useState([
-    {
-      id: 0,
-      name: "Burgers",
-      selected: true,
-    },
-    {
-      id: 1,
-      name: "Hot-Dogs",
-      selected: false,
-    },
-    {
-      id: 2,
-      name: "Pizza’s",
-      selected: false,
-    },
-    {
-      id: 3,
-      name: "National meals",
-      selected: false,
-    },
-    {
-      id: 4,
-      name: "Salads",
-      selected: false,
-    },
-  ]);
-  const [products, setProducts] = useState([
-    {
-      id: 0,
-      name: "Pizza for kids",
-      imgUrl: delicious,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: false,
-    },
-    {
-      id: 1,
-      name: "Bergur Kok",
-      imgUrl: food,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: false,
-    },
-    {
-      id: 2,
-      name: "Pizza for kids",
-      imgUrl: dumplings,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 3,
-      name: "Pizza for kids",
-      imgUrl: fried,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 4,
-      name: "Pizza for kids",
-      imgUrl: baguette,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 5,
-      name: "Pizza for kids",
-      imgUrl: monika,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 6,
-      name: "Pizza for kids",
-      imgUrl: delicious,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: false,
-    },
-    {
-      id: 7,
-      name: "Bergur Kok",
-      imgUrl: food,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: false,
-    },
-    {
-      id: 8,
-      name: "Pizza for kids",
-      imgUrl: dumplings,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 9,
-      name: "Pizza for kids",
-      imgUrl: fried,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 10,
-      name: "Pizza for kids",
-      imgUrl: baguette,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-    {
-      id: 11,
-      name: "Pizza for kids",
-      imgUrl: monika,
-      price: "50.000",
-      totalOrders: 250,
-      revenue: 1000,
-      inStock: true,
-    },
-  ]);
+  const [selectAll, setSelectAll] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   // useEffect(() => {
   //   const next_product = document.querySelector("#next-product");
@@ -162,7 +30,51 @@ function ProductList() {
   //   });
   // }, []);
 
+  useEffect(() => {
+    getAllProduct();
+  }, []);
+
+  useEffect(() => {
+    if (selectAll) {
+      setFilteredProducts(products);
+    } else{
+      setFilteredProducts(
+      products.filter((product) => {
+        if (
+          categories.find(
+            (category) =>
+              category.id === product.parentGroup && category.selected
+          )
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+    }
+    console.log(filteredProducts);
+    
+  }, [selectAll, categories]);
+
+  console.log(filteredProducts); 
+
+  function getAllProduct() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    usePost("/v1/menu/nomenclature").then(({ data }) => {
+      setCategories(
+        data?.groups.map((group) => {
+          return { ...group, selected: false };
+        })
+      );
+      setProducts(data?.products);
+      console.log(data.products);
+      console.log(data.groups);
+    });
+  }
+
   const selectCategory = (id) => {
+    setSelectAll(false)
     setCategories(
       categories.map((category) => {
         if (category.id === id) {
@@ -191,6 +103,16 @@ function ProductList() {
       <div className="py-5 px-10">
         <div className="flex justify-between text-Neutral/Shades/04-75% text-sm mb-5">
           <div className="flex">
+          <span
+              onClick={() => setSelectAll(!selectAll)}
+              className={`h-10 duration-200 px-4 mr-2.5 rounded-xl py-[9px] border border-transparent cursor-pointer ${
+                selectAll
+                  ? "text-white bg-Primary/03 hover:bg-hoverButton"
+                  : "text-Neutral/Shades/04-75% bg-white hover:border-Neutral/Shades/04-75% hover:bg-transparent"
+              }`}
+            >
+              All
+            </span>
             {categories.map((category) => {
               return (
                 <span
@@ -258,16 +180,16 @@ function ProductList() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index, array) => {
+              {filteredProducts.map((product, index) => {
                 return (
-                  <tr key={product.id} className={`border-b border-Neutral/03`}>
+                  <tr key={index} className={`border-b border-Neutral/03`}>
                     <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
                       {product.id}
                     </td>
                     <td className="py-1.5 min-w-[80px]">
                       <img
                         className="w-10 h-10 rounded-full object-cover"
-                        src={product.imgUrl}
+                        src={product.imageLinks[0]}
                         alt=""
                       />
                     </td>
@@ -276,15 +198,15 @@ function ProductList() {
                       <span
                         // onClick={() => cantrolStock(product.id)}
                         className={`w-[110px] h-9 rounded-[10px] ${
-                          product.inStock
-                            ? "bg-Primary/03"
-                            : "bg-Primary/03/50"
+                          product.isDeleted
+                            ? "bg-Primary/03/50"
+                            : "bg-Primary/03"
                         } text-sm text-white font-semibold flex justify-center items-center`}
                       >
-                        {product.inStock ? "In Stock" : "Out of Stock"}
+                        {product.isDeleted ? "Out of Stock" : "In Stock"}
                       </span>
                     </td>
-                    <td className="py-3 min-w-[100px]">{product.price}</td>
+                    <td className="py-3 min-w-[100px]">{product.sizePrices[0].price.currentPrice}</td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
                       <div className="flex w-full justify-between">
                         {/* <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">

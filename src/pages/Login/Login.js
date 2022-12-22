@@ -10,7 +10,7 @@ function Login() {
   return (
     <div className='flex w-full'>
       <div className='w-1/2 h-[100vh] border '>
-        <img src='/loginBackground.png' className='object-cover w-full h-full' />
+        <img alt='' src='/loginBackground.png' className='object-cover w-full h-full' />
       </div>
       <div className='w-1/2 h-[100vh]  flex justify-center items-center'>
         <div className='w-8/12   w-full '>

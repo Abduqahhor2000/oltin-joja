@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function LikeAntd({ totalItem, changePage }) {
+function Pagination({ totalItem, changePage }) {
   //   const [totalItem, setTotalItem] = useState(500);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,7 +16,7 @@ function LikeAntd({ totalItem, changePage }) {
   }, [pageSize]);
   
   function cantrol(number) {
-    console.log(totalItem, currentPage, pageSize, pageTotal);
+    // console.log(totalItem, currentPage, pageSize, pageTotal);
     let truePage =
       1 > number ? number : number > pageTotal ? pageTotal : number;
     setCurrentPage(truePage);
@@ -44,7 +44,7 @@ function LikeAntd({ totalItem, changePage }) {
       }
       setButtons(clickButtons);
     }
-    console.log(clickButtons);
+    // console.log(clickButtons);
     changePage(truePage, pageSize, totalItem);
   }
 
@@ -158,4 +158,4 @@ function LikeAntd({ totalItem, changePage }) {
   );
 }
 
-export default LikeAntd;
+export default Pagination;

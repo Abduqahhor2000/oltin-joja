@@ -37,8 +37,8 @@ const LoginForm = () => {
         notifyLoginSuccess();
         setActive(false);
         // console.log(res.data);
-        localStorage.setItem("Authorization", JSON.stringify(res.data.token));
-        localStorage.setItem("refresh", JSON.stringify(res.data.refreshToken));
+        localStorage.setItem("Authorization", res.data.token);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
         navigate("/product_category");
       })
       .catch((error) => {

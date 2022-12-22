@@ -1,105 +1,71 @@
-import React, { useState } from "react";
-import {useNavigate} from "react-router-dom"
-import {
-  edit_svg,
-  edit_grey_svg,
-  del_svg,
-  del_grey_svg,
-} from "../../../svg/product";
-import baguette from "../../../images/baguette.png";
-import delicious from "../../../images/delicious.png";
-import dumplings from "../../../images/dumplings.png";
-import food from "../../../images/food.png";
-import fried from "../../../images/fried.png";
-import monika from "../../../images/monika.png";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import {
+//   edit_svg,
+//   edit_grey_svg,
+//   del_svg,
+//   del_grey_svg,
+// } from "../../../svg/product";
+import { usePost } from "../../../api/http";
+// import baguette from "../../../images/baguette.png";
+// import delicious from "../../../images/delicious.png";
+// import dumplings from "../../../images/dumplings.png";
+// import food from "../../../images/food.png";
+// import fried from "../../../images/fried.png";
+// import monika from "../../../images/monika.png";
 
 function ProductCategory() {
-  const navigate = useNavigate()
-  const [categories, setCategories] = useState([
-    {
-      id: 0,
-      name: "Burgers",
-      selected: true,
-    },
-    {
-      id: 1,
-      name: "Hot-Dogs",
-      selected: false,
-    },
-    {
-      id: 2,
-      name: "Pizza’s",
-      selected: false,
-    },
-    {
-      id: 3,
-      name: "National meals",
-      selected: false,
-    },
-    {
-      id: 4,
-      name: "Salads",
-      selected: false,
-    },
-  ]);
-  const [products, setProducts] = useState([
-    {
-      id: 0,
-      name: "Pizza for kids",
-      imgUrl: delicious,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: false,
-    },
-    {
-      id: 1,
-      name: "Bergur Kok",
-      imgUrl: food,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: false,
-    },
-    {
-      id: 2,
-      name: "Pizza for kids",
-      imgUrl: dumplings,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: true,
-    },
-    {
-      id: 3,
-      name: "Pizza for kids",
-      imgUrl: fried,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: true,
-    },
-    {
-      id: 4,
-      name: "Pizza for kids",
-      imgUrl: baguette,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: true,
-    },
-    {
-      id: 5,
-      name: "Pizza for kids",
-      imgUrl: monika,
-      price: "32.000",
-      totalOrders: 250,
-      revenue: "15.129.000",
-      inStock: true,
-    },
-  ]);
+  const navigate = useNavigate();
+  const [selectAll, setSelectAll] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getAllProduct();
+  }, []);
+
+  useEffect(() => {
+    if (selectAll) {
+      setFilteredProducts(products);
+    } else{
+      setFilteredProducts(
+      products.filter((product) => {
+        if (
+          categories.find(
+            (category) =>
+              category.id === product.parentGroup && category.selected
+          )
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+    }
+    console.log(filteredProducts);
+    
+  }, [selectAll, categories]);
+
+  console.log(filteredProducts); 
+
+  function getAllProduct() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    usePost("/v1/menu/nomenclature").then(({ data }) => {
+      setCategories(
+        data?.groups.map((group) => {
+          return { ...group, selected: false };
+        })
+      );
+      setProducts(data?.products);
+      console.log(data.products);
+      console.log(data.groups);
+    });
+  }
 
   const selectCategory = (id) => {
+    setSelectAll(false)
     setCategories(
       categories.map((category) => {
         if (category.id === id) {
@@ -111,23 +77,33 @@ function ProductCategory() {
     );
   };
 
-  const cantrolStock = (id) => {
-    setProducts(
-      products.map((product) => {
-        if (product.id === id) {
-          return { ...product, inStock: !product.inStock };
-        } else {
-          return product;
-        }
-      })
-    );
-  };
+  // const cantrolStock = (id) => {
+  //   setProducts(
+  //     products.map((product) => {
+  //       if (product.id === id) {
+  //         return { ...product, inStock: !product.inStock };
+  //       } else {
+  //         return product;
+  //       }
+  //     })
+  //   );
+  // };
 
-  return (
+  return (  
     <div>
       <div className="py-5 px-10">
         <div className="flex justify-between text-Neutral/Shades/04-75% text-sm">
-          <div className="flex">
+          <div className="flex flex-wrap">
+            <span
+              onClick={() => setSelectAll(!selectAll)}
+              className={`h-10 duration-200 px-4 mr-2.5 rounded-xl py-[9px] border border-transparent cursor-pointer ${
+                selectAll
+                  ? "text-white bg-Primary/03 hover:bg-hoverButton"
+                  : "text-Neutral/Shades/04-75% bg-white hover:border-Neutral/Shades/04-75% hover:bg-transparent"
+              }`}
+            >
+              All
+            </span>
             {categories.map((category) => {
               return (
                 <span
@@ -155,16 +131,16 @@ function ProductCategory() {
             Add
           </span> */}
         </div>
-        <div className="pt-2.5 flex justify-between flex-wrap">
-          {products.map((product) => {
+        <div className="pt-2.5 flex flex-wrap">
+          {filteredProducts.map((product, index) => {
             return (
               <div
-                key={product.id}
-                className="w-[calc((100%-60px)/3)] bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 font-medium text-sm"
+                key={index}
+                className="w-[calc((100%-60px)/3)] bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 mr-4 font-medium text-sm"
               >
                 <div className="h-48 w-full bg-zinc-300 rounded-[10px] mb-4 cursor-pointer overflow-hidden">
                   <img
-                    src={product.imgUrl}
+                    src={product.imageLinks[0]}
                     alt=""
                     className="h-full w-full object-cover"
                   />
@@ -172,25 +148,23 @@ function ProductCategory() {
                 <div className="flex justify-between items-center mb-2.5">
                   <span className="font-semibold pl-1">{product.name}</span>
                   <span className="text-white py-0.5 px-2.5 leading-6 bg-Primary/03 rounded-[10px]">
-                    Price: {product.price}
+                    Price: {product.sizePrices[0].price.currentPrice} so'm
                   </span>
                 </div>
-                <div className="flex justify-between text-Neutral/Shades/04-75% mb-2.5">
+                {/* <div className="flex justify-between text-Neutral/Shades/04-75% mb-2.5">
                   <span className="pl-1">
                     Total Order: {product.totalOrders}
                   </span>
                   <span>Revenue: {product.revenue}</span>
-                </div>
+                </div> */}
                 <div className="flex justify-between items-center pl-1">
                   <span
                     // onClick={() => cantrolStock(product.id)}
                     className={`w-full h-10 rounded-[10px] ${
-                      product.inStock
-                        ? "bg-Primary/03"
-                        : "bg-Primary/03/50"
+                      product.isDeleted ? "bg-Primary/03/50" : "bg-Primary/03"
                     } text-white font-semibold flex justify-center items-center`}
                   >
-                    {product.inStock ? "In Stock" : "Out of Stock"}
+                    {product.isDeleted ?  "Out of Stock" :"In Stock"}
                   </span>
                   {/* <span className="w-10 h-10 group rounded-[10px] duration-200 border border-Neutral/Shade/04-40% flex justify-center items-center hover:bg-Neutral/02 hover:border-transparent cursor-pointer active:bg-Neutral/03 select-none">
                     <span className="hidden group-hover:block">

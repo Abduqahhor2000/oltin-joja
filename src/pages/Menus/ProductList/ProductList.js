@@ -9,6 +9,7 @@ import {
   send_svg,
 } from "../../../svg/product";
 import { usePost } from "../../../api/http";
+import { notification } from "../../../toastify/Toastify";
 // import baguette from "../../../images/baguette.png";
 // import delicious from "../../../images/delicious.png";
 // import dumplings from "../../../images/dumplings.png";
@@ -37,27 +38,26 @@ function ProductList() {
   useEffect(() => {
     if (selectAll) {
       setFilteredProducts(products);
-    } else{
+    } else {
       setFilteredProducts(
-      products.filter((product) => {
-        if (
-          categories.find(
-            (category) =>
-              category.id === product.parentGroup && category.selected
-          )
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
+        products.filter((product) => {
+          if (
+            categories.find(
+              (category) =>
+                category.id === product.parentGroup && category.selected
+            )
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
     }
     console.log(filteredProducts);
-    
   }, [selectAll, categories]);
 
-  console.log(filteredProducts); 
+  console.log(filteredProducts);
 
   function getAllProduct() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -74,7 +74,7 @@ function ProductList() {
   }
 
   const selectCategory = (id) => {
-    setSelectAll(false)
+    setSelectAll(false);
     setCategories(
       categories.map((category) => {
         if (category.id === id) {
@@ -103,7 +103,7 @@ function ProductList() {
       <div className="py-5 px-10">
         <div className="flex justify-between text-Neutral/Shades/04-75% text-sm mb-5">
           <div className="flex">
-          <span
+            <span
               onClick={() => setSelectAll(!selectAll)}
               className={`h-10 duration-200 px-4 mr-2.5 rounded-xl py-[9px] border border-transparent cursor-pointer ${
                 selectAll
@@ -184,7 +184,15 @@ function ProductList() {
                 return (
                   <tr key={index} className={`border-b border-Neutral/03`}>
                     <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
-                      {product.id}
+                      <span
+                        className="cursor-pointer border border-transparent hover:border-Neutral/Shades/04-75% hover:text-Neutral/Shades/04-75% rounded-md p-1"
+                        onClick={() => {
+                          navigator.clipboard.writeText(product.id);
+                          notification("success", "Text copied", "bottom-center")
+                        }}
+                      >
+                      {product.id.substring(0, 8)}....
+                      </span>
                     </td>
                     <td className="py-1.5 min-w-[80px]">
                       <img
@@ -206,7 +214,9 @@ function ProductList() {
                         {product.isDeleted ? "Out of Stock" : "In Stock"}
                       </span>
                     </td>
-                    <td className="py-3 min-w-[100px]">{product.sizePrices[0].price.currentPrice}</td>
+                    <td className="py-3 min-w-[100px]">
+                      {product.sizePrices[0].price.currentPrice}
+                    </td>
                     <td className="text-end pr-7 w-[100px] min-w-[100px]">
                       <div className="flex w-full justify-between">
                         {/* <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">

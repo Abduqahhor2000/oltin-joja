@@ -24,9 +24,9 @@ export const notifyLoginError = () =>
     progress: undefined,
     theme: "light",
   });
-export const notification = (type, text) =>
+export const notification = (type, text, position) =>
   toast[type](text, {
-    position: "top-center",
+    position: position ? position : "top-center",
     autoClose: 3000,
     zIndex: 10000,
     hideProgressBar: false,

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom"
+// import {useNavigate} from "react-router-dom"
 import {
-  edit_svg,
-  del_svg,
-  del_grey_svg,
-  edit_grey_svg,
+  // edit_svg,
+  // del_svg,
+  // del_grey_svg,
+  // edit_grey_svg,
   send_grey_svg,
   send_svg,
 } from "../../../svg/product";
@@ -17,7 +17,7 @@ import { usePost } from "../../../api/http";
 // import monika from "../../../images/monika.png";
 
 function ProductList() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [selectAll, setSelectAll] = useState(true);
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);

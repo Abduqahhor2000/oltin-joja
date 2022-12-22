@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import {
 //   edit_svg,
 //   edit_grey_svg,
@@ -15,7 +15,7 @@ import { usePost } from "../../../api/http";
 // import monika from "../../../images/monika.png";
 
 function ProductCategory() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectAll, setSelectAll] = useState(true);
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);

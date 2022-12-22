@@ -57,7 +57,7 @@ export const Content = () => {
             <div className=" w-full  p-1 grid  grid-cols-12 bg-white hover:shadow-md hover:duration-300 hover:transition-all transition duration-300">
               <div className=" col-span-1  flex justify-center items-center">
                 <div className="rounded-full">
-                  <img src={item.image} className=" object-cover rounded-full w-12 h-12" />
+                  <img alt="" src={item.image} className=" object-cover rounded-full w-12 h-12" />
                 </div>
               </div>
               <div className=" col-span-9  ">
@@ -69,7 +69,7 @@ export const Content = () => {
               </div>
               <div className="col-span-2 flex items-center justify-center">
                 <div className="w-20 h-16 rounded-md  bg-red-300 flex items-center justify-center ">
-                  <img src={item.image_product} className="object-cover w-full h-full rounded-md" />
+                  <img alt="" src={item.image_product} className="object-cover w-full h-full rounded-md" />
                 </div>
               </div>
             </div>

@@ -7,15 +7,15 @@ import {
   del_grey_svg,
   edit_grey_svg,
 } from "../../../svg/product";
-import admin0 from "../../../images/customer.png";
-import admin1 from "../../../images/customer1.png";
-import admin2 from "../../../images/customer2.png";
+// import admin0 from "../../../images/customer.png";
+// import admin1 from "../../../images/customer1.png";
+// import admin2 from "../../../images/customer2.png";
 import { useDelete, useGet } from "../../../api/http";
 import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { addAdmins, clearAdmins } from "../../../store/admins/admins";
-import { addAdmin, clearAdmin } from "../../../store/admins/edit_admin";
-import Pagination from "../../pagination/Pagination"
+import { addAdmins } from "../../../store/admins/admins";
+import { addAdmin } from "../../../store/admins/edit_admin";
+// import Pagination from "../../pagination/Pagination"
 // import {UseGetAdmins} from "../../../api/axios"
 // import axios from "axios";
 

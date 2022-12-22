@@ -1,131 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { search_svg } from "../../../svg/navbar";
-import customer_img from "../../../images/customer.png";
-import customer1_img from "../../../images/customer1.png";
-import customer2_img from "../../../images/customer2.png";
-import customer3_img from "../../../images/customer3.png";
-import customer4_img from "../../../images/customer4.png";
-import customer5_img from "../../../images/customer5.png";
-import customer6_img from "../../../images/customer6.png";
-import customer7_img from "../../../images/customer7.png";
-import customer8_img from "../../../images/customer8.png";
+import { useGet } from "../../../api/http";
+import { useDispatch, useSelector } from "react-redux";
+import { costumersInfo } from "../../../store/costumers/costumers";
+import Pagination from "../../pagination/likeAntd";
 
 function CustomersList() {
-  const [customers, setCustomers] = useState([
-    {
-      id: 12155,
-      image: customer_img,
-      title: "Aminjon Usmonov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12156,
-      image: customer1_img,
-      title: "Hakim Bakirov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12157,
-      image: null,
-      title: "Mahliyo Ilhamova",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12158,
-      image: customer2_img,
-      title: "Guli Yoldasheva",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12159,
-      image: customer3_img,
-      title: "Elyor Olimov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12160,
-      image: null,
-      title: "Komila Hakimova",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12161,
-      image: null,
-      title: "Oydin Ilhamova",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12162,
-      image: customer4_img,
-      title: "Guli Yoldasheva",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12163,
-      image: customer5_img,
-      title: "Elyor Olimov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12164,
-      image: customer6_img,
-      title: "Hakim Bakirov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12165,
-      image: customer7_img,
-      title: "Aminjon Usmonov",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-    {
-      id: 12166,
-      image: customer8_img,
-      title: "Guli Yoldasheva",
-      phone: "94-487-84-81",
-      email: "Aminjonusmonov@gmail.com",
-      registrationDate: "19/01/2021",
-      bill: "2.140.000",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const costumersData = useSelector(
+    (state) => state?.axmad_joja?.costumers?.costumersData
+  );
+  const [paginationLength, setPaginationLength] = useState(1);
+  console.log(costumersData);
 
+  useEffect(() => {
+    FetchData(1, 10);
+  }, []);
+
+  const FetchData = async (currentPage, pageSize) => {
+    await useGet(`/v1/users/customers`, {
+      "page[offset]": (+currentPage - 1) * pageSize,
+      "page[limit]": pageSize,
+    })
+      .then((responce) => {
+        // console.log();
+        setPaginationLength(responce.data.pageInfo?.totalCount);
+        dispatch(costumersInfo(responce.data.entities));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  console.log(paginationLength);
   return (
     <div>
       <div className="py-5 px-10">
-        <div className="bg-white rounded-[10px] overflow-hidden">
+        <div className="bg-white rounded-[10px] overflow-hidden py-0 px-5">
           <div className="pt-5 pl-7 flex justify-between">
             <div className="text-lg leading-6 text-Neutral/04">
               Customer list
@@ -141,7 +50,7 @@ function CustomersList() {
               </span>
             </span>
           </div>
-          <div className="overflow-auto relative max-h-[calc(100vh-180px)]">
+          <div className="overflow-auto relative max-h-[calc(100vh-280px)] ">
             <table className="w-full text-sm text-Neutral/Shades/04-75%">
               <thead>
                 <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">
@@ -157,7 +66,7 @@ function CustomersList() {
                   </th>
                   <th>
                     <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
-                      Title
+                      Name
                     </div>
                   </th>
                   <th>
@@ -165,11 +74,11 @@ function CustomersList() {
                       Phone number
                     </div>
                   </th>
-                  <th>
+                  {/* <th>
                     <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
                       Email
                     </div>
-                  </th>
+                  </th> */}
                   <th>
                     <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
                       Registration date
@@ -177,13 +86,13 @@ function CustomersList() {
                   </th>
                   <th>
                     <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
-                      Bill
+                      Total
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {customers.map((customer, index, array) => {
+                {costumersData.map((customer, index, array) => {
                   return (
                     <tr
                       key={customer.id}
@@ -199,19 +108,21 @@ function CustomersList() {
                           />
                         ) : (
                           <>
-                          <span className="w-10 h-10 rounded-full bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
-                            {customer.title.substring(0,1)}
-                          </span>
+                            <span className="w-10 h-10 rounded-full bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
+                              {customer.full_name.substring(0, 1)}
+                            </span>
                           </>
                         )}
                       </td>
-                      <td className="py-3 min-w-[200px]">{customer.title}</td>
-                      <td className="py-2 min-w-[170px]">{customer.phone}</td>
-                      <td className="py-[14px] min-w-[260px]">
-                        {customer.email}
+                      <td className="py-3 min-w-[200px]">
+                        {customer.full_name}
                       </td>
+                      <td className="py-2 min-w-[170px]">{customer.phone}</td>
+                      {/* <td className="py-[14px] min-w-[260px]">
+                        {customer.email}
+                      </td> */}
                       <td className="py-3 min-w-[160px]">
-                        {customer.registrationDate}
+                        {customer.created_at.split("T")[0]}
                       </td>
                       <td className="py-3 min-w-[120px]">{customer.bill}</td>
                     </tr>
@@ -219,6 +130,14 @@ function CustomersList() {
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-end w-full mt-5 mb-5">
+            <Pagination
+              totalItem={paginationLength}
+              changePage={(currentPage, pageSize) => {
+                FetchData(currentPage, pageSize);
+              }}
+            />
           </div>
         </div>
       </div>

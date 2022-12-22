@@ -12,8 +12,12 @@ function Pagination({ totalItem, changePage }) {
   }, []);
 
   useEffect(() => {
+    setPageTotal(Math.ceil(totalItem / pageSize))
+  }, [totalItem]);
+
+  useEffect(() => {
     cantrol(1);
-  }, [pageSize]);
+  }, [pageSize, pageTotal]);
   
   function cantrol(number) {
     // console.log(totalItem, currentPage, pageSize, pageTotal);
@@ -141,17 +145,18 @@ function Pagination({ totalItem, changePage }) {
       </div>
       <div className="ml-3">
         <select
+        defaultValue={10}
           onChange={(e) => {
             setPageSize(e.target.value);
             setPageTotal(Math.ceil(totalItem / e.target.value))
           }}
           className="h-[38px] outline-none bg-white border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected>10</option>
-          <option>20</option>
-          <option>50</option>
-          <option>100</option>
-          <option>500</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+          <option value={500}>500</option>
         </select>
       </div>
     </div>

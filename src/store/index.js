@@ -13,11 +13,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import costumerInfo from "./costumers/costumers";
 
 const rootReducer = combineReducers({
   user: userInfo,
   admins: adminsInfo,
   admin: adminInfo,
+  costumers: costumerInfo,
 });
 
 const persistConfig = {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { UseLogin } from "../../api/axios";
-import { toast, ToastContainer } from "react-toastify";
+// import { UseLogin } from "../../api/axios";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  notifyError,
+  // notifyError,
   notifyLoginError,
   notifyLoginSuccess,
-  notifySuccess,
+  // notifySuccess,
 } from "../../toastify/Toastify";
 import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
@@ -103,10 +103,10 @@ const LoginForm = () => {
       <button
         htmltype="submit"
         className={`${
-          active == true ? "  pointer-events-none  " : ""
+          active === true ? "  pointer-events-none  " : ""
         } bg-Primary/03 cursor-pointer w-full h-12 rounded-lg text-white text-lg`}
       >
-        {active == true ? (
+        {active === true ? (
           <SyncLoader loading={active} color={"#fff"} size={10} />
         ) : (
           <p>Sign in</p>

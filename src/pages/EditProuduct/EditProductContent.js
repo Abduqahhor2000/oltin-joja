@@ -86,16 +86,16 @@ const EditInfo = () => {
             <p className="text-[#6F767E]">Product detail En</p>
             <p className="text-[#9A9FA5] ">{data[0].description_en}</p>
           </div>
-        </div>
+        </div> 
 
         <div className=" w-full h-full  p-5">
           <div className="p-4 border rounded-lg">
             <p className="text-[#6F767E] ">Product image</p>
             <div className="w-full flex justify-center p-2 ">
-              <img src="/edit_burger.png" className="w-full" />
+              <img alt="" src="/edit_burger.png" className="w-full" />
             </div>
           </div>
-          <div className="flex w-full  flex justify-end xl:mt-5 mdPlus:mt-16 mt-5">
+          <div className="flex w-full justify-end xl:mt-5 mdPlus:mt-16 mt-5">
             <div className="flex justify-between 2xl:w-[280px] w-[250px]  ">
               <button className="2xl:w-32 2xl:h-10 w-28 h-8 2xl:p-2 p-0 rounded-md  border-2 text-[#9A9FA5] ">
                 Delete

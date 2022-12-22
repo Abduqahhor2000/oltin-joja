@@ -3,7 +3,7 @@ import { search_svg } from "../../../svg/navbar";
 import { useGet } from "../../../api/http";
 import { useDispatch, useSelector } from "react-redux";
 import { costumersInfo } from "../../../store/costumers/costumers";
-import Pagination from "../../pagination/likeAntd";
+import Pagination from "../../pagination/Pagination";
 
 function CustomersList() {
   const dispatch = useDispatch();

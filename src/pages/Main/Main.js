@@ -3,8 +3,8 @@ import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   customers_svg,
   customers_svg_active,
-  dashboard_svg,
-  dashboard_svg_active,
+  // dashboard_svg,
+  // dashboard_svg_active,
   invoice_svg,
   invoice_svg_active,
   menus_svg,
@@ -28,16 +28,16 @@ function Main() {
   // console.log(JSON.parse(localStorage.getItem("Authorization")));
 
   const [menus, setMenus] = useState([
-    {
-      name: "Dashboard",
-      url: "/dashboard",
-      isActive: false,
-      icon: {
-        active: dashboard_svg_active,
-        inactive: dashboard_svg,
-      },
-      items: [],
-    },
+    // {
+    //   name: "Dashboard",
+    //   url: "/dashboard",
+    //   isActive: false,
+    //   icon: {
+    //     active: dashboard_svg_active,
+    //     inactive: dashboard_svg,
+    //   },
+    //   items: [],
+    // },
     {
       name: "Menus",
       url: "",
@@ -122,7 +122,7 @@ function Main() {
             return { ...item, isActive: true };
           } else {
             return { ...item, isActive: false };
-          }
+          } 
         } else {
           if (
             item.items.find(

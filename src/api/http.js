@@ -6,7 +6,7 @@ function createInstance(baseURL, type, authorization) {
     'Content-Type': type
   }
   const axiosInstance = axios.create({ baseURL })
-
+ 
   axiosInstance.interceptors.request.use(
     (config) => {
       if (authorization && config.headers) {

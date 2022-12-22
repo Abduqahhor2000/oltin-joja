@@ -1,13 +1,16 @@
 import axios from 'axios'
 
 function createInstance(baseURL, type, authorization) {
-
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': type
+  }
   const axiosInstance = axios.create({ baseURL })
 
   axiosInstance.interceptors.request.use(
     (config) => {
       if (authorization && config.headers) {
-        config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('Authorization'))}`
+        config.headers.Authorization = `Bearer ${localStorage.getItem('Authorization')}`
       }
       return config
     },
@@ -17,28 +20,30 @@ function createInstance(baseURL, type, authorization) {
   axiosInstance.interceptors.response.use(
     async (res) => res,
     (error) => {
-      const refreshToken = localStorage.getItem('refreshToken')
+      const refreshToken = localStorage.getItem('refreshToken') 
+      console.log(refreshToken, error)
       if (error.response?.status === 401 && refreshToken) {
         axios
           .post(
-            process.env.REACT_APP_BASE_URL + '/v1/auth/token/refresh',
+            `${process.env.REACT_APP_BASE_URL}/v1/auth/admin/refresh`,
             { refreshToken },
             {
               headers: {
+                ...headers,
                 Authorization: `Bearer ${refreshToken}`
               }
             }
           )
           .then(({ data }) => {
-            localStorage.setItem('Authorization', data.access_token)
+            console.log(data)
+            localStorage.setItem('Authorization', data.token)
             window.location.reload()
           })
           .catch(() => {
             localStorage.clear()
             window.location.reload()
           })
-    } 
-      
+      }
         return Promise.reject(error)
     }
   )

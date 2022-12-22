@@ -15,7 +15,7 @@ import Modal from "../../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { addAdmins, clearAdmins } from "../../../store/admins/admins";
 import { addAdmin, clearAdmin } from "../../../store/admins/edit_admin";
-import Pagination from "../../pagination/likeAntd"
+import Pagination from "../../pagination/Pagination"
 // import {UseGetAdmins} from "../../../api/axios"
 // import axios from "axios";
 
@@ -163,9 +163,9 @@ function Admins() {
           </table>
           {/* <div id="next-product"></div> */}
         </div>
-        <div>
+        {/* <div>
           <Pagination totalItem={1000} changePage={(currentPage, pageSize, totalItem)=> console.log(currentPage, pageSize, totalItem)}/>
-        </div>
+        </div> */}
       </div>
       {isOpen ? (
         <Modal>

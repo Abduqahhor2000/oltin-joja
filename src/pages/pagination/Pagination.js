@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function LikeAntd({ totalItem, changePage }) {
+function Pagination({ totalItem, changePage }) {
   //   const [totalItem, setTotalItem] = useState(500);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -163,4 +163,4 @@ function LikeAntd({ totalItem, changePage }) {
   );
 }
 
-export default LikeAntd;
+export default Pagination;

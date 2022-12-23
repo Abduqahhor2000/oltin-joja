@@ -173,15 +173,15 @@ function InvoiceList() {
                     </div>
                   </th>
                   <th>
-                    <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
+                    <div className="text-center border-b-2 border-Neutral/03 font-semibold py-4">
                       Total Bill
                     </div>
                   </th>
-                  <th>
+                  {/* <th>
                     <div className="text-center border-b-2 border-Neutral/03 font-semibold py-4">
                       Send Invoice
                     </div>
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
@@ -203,10 +203,10 @@ function InvoiceList() {
                         {invoice.quantity}
                       </td>
                       <td className="py-3 min-w-[130px]">{invoice.price}</td>
-                      <td className="py-3 min-w-[130px]">
+                      <td className="py-3 min-w-[130px] text-center">
                         {invoice.totalBill}
                       </td>
-                      <td className="min-w-[135px] leading-5">
+                      {/* <td className="min-w-[135px] leading-5">
                         <div className="flex w-full justify-center">
                           <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5 mr-1.5">
                             <span className="hidden group-hover:block">
@@ -225,7 +225,7 @@ function InvoiceList() {
                             </span>
                           </span>
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   );
                 })}

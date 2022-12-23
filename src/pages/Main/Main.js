@@ -16,9 +16,11 @@ import {
 import avatar from "../../images/avatar.png";
 import { message_svg, notif_svg, search_svg } from "../../svg/navbar";
 import { ToastContainers } from "../../toastify/Toastify";
+import { useSelector } from "react-redux";
 // import axios from "axios"
 
 function Main() {
+  const user = useSelector(state => state.axmad_joja?.user?.user)
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -390,9 +392,9 @@ function Main() {
             {notif_svg}
           </span>
           </Link>
-       
-          <div className="ml-[26px] h-11 w-11 rounded-full">
-            <img src={avatar} alt="" className="w-full h-full" />
+          {console.log(user)}
+          <div className="ml-[26px] h-11 w-11 rounded-full overflow-hidden">
+            <img src={`${process.env.REACT_APP_BASE_URL}/${user?.avatar}`} alt="" className="w-full h-full" />
           </div>
         </div>
 

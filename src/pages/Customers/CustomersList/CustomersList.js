@@ -6,31 +6,54 @@ import { costumersInfo } from "../../../store/costumers/costumers";
 import Pagination from "../../pagination/Pagination";
 
 function CustomersList() {
+  const [filterByName, setFilterByName] = useState("");
+  const [paginationLength, setPaginationLength] = useState(1);
   const dispatch = useDispatch();
   const costumersData = useSelector(
     (state) => state?.axmad_joja?.costumers?.costumersData
   );
-  const [paginationLength, setPaginationLength] = useState(1);
-  console.log(costumersData);
+
+
+  const handleFilter = (e) => {
+    let checkLength = e.target.value;
+    setFilterByName(checkLength);
+    if (checkLength.length > 2) {
+      // FilterData();
+    FetchData(filterByName,1, 10);
+
+    }
+  };
 
   useEffect(() => {
     FetchData(1, 10);
   }, []);
+  const [sortData, setSortData] = useState("");
+  const FilterData = () => {
+    useGet("/v1/users/customers", {
+      q: `${filterByName}`,
+    })
+      .then((res) => {
+        setSortData(res.data?.entities[0]?.full_name);
+        console.log(res.data);
+      })
+      .catch((eror) => console.log(eror));
+  };
 
-  const FetchData = async (currentPage, pageSize) => {
+  const FetchData = async (filterByName, currentPage, pageSize) => {
+    // console.log("assa",filterByName);
     await useGet(`/v1/users/customers`, {
+      q: filterByName,
       "page[offset]": (+currentPage - 1) * pageSize,
       "page[limit]": pageSize,
     })
       .then((responce) => {
-        // console.log();
-        setPaginationLength(responce.data.pageInfo?.totalCount);
         dispatch(costumersInfo(responce.data.entities));
+        setPaginationLength(responce.data.pageInfo?.totalCount);
+        setSortData(responce.data?.entities[0]?.full_name);
       })
       .catch((error) => console.log(error));
   };
 
-  console.log(paginationLength);
   return (
     <div>
       <div className="py-5 px-10">
@@ -41,6 +64,7 @@ function CustomersList() {
             </div>
             <span className="relative mr-5">
               <input
+                onChange={(e) => handleFilter(e)}
                 className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
                 type="text"
                 placeholder="Search customer"
@@ -84,50 +108,54 @@ function CustomersList() {
                       Registration date
                     </div>
                   </th>
-                  <th>
+                  {/* <th>
                     <div className="text-start border-b-2 border-Neutral/03 font-semibold py-4">
                       Total
                     </div>
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
-                {costumersData.map((customer, index, array) => {
-                  return (
-                    <tr
-                      key={customer.id}
-                      className={`border-b border-Neutral/03`}
-                    >
-                      <td className="py-3 pl-7 min-w-[100px]">{customer.id}</td>
-                      <td className="py-1.5 min-w-[120px] flex justify-center">
-                        {customer.image ? (
-                          <img
-                            className="w-10 h-10 rounded-full object-cover"
-                            src={customer.image}
-                            alt=""
-                          />
-                        ) : (
-                          <>
-                            <span className="w-10 h-10 rounded-full bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
-                              {customer.full_name.substring(0, 1)}
-                            </span>
-                          </>
-                        )}
-                      </td>
-                      <td className="py-3 min-w-[200px]">
-                        {customer.full_name}
-                      </td>
-                      <td className="py-2 min-w-[170px]">{customer.phone}</td>
-                      {/* <td className="py-[14px] min-w-[260px]">
+                {costumersData
+                  .filter((user) => user?.full_name.includes(sortData))
+                  .map((customer) => {
+                    return (
+                      <tr
+                        key={customer.id}
+                        className={`border-b border-Neutral/03`}
+                      >
+                        <td className="py-3 pl-7 min-w-[100px]">
+                          {customer.id}
+                        </td>
+                        <td className="py-1.5 min-w-[120px] flex justify-center">
+                          {customer.image ? (
+                            <img
+                              className="w-10 h-10 rounded-full object-cover"
+                              src={customer.image}
+                              alt=""
+                            />
+                          ) : (
+                            <>
+                              <span className="w-10 h-10 rounded-full uppercase bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
+                                {customer.full_name.substring(0, 1)}
+                              </span>
+                            </>
+                          )}
+                        </td>
+                        <td className="py-3 min-w-[200px] capitalize ">
+                          {customer.full_name}
+                        </td>
+                        <td className="py-2 min-w-[170px]">{customer.phone}</td>
+                        {/* <td className="py-[14px] min-w-[260px]">
                         {customer.email}
                       </td> */}
-                      <td className="py-3 min-w-[160px]">
-                        {customer.created_at.split("T")[0]}
-                      </td>
-                      <td className="py-3 min-w-[120px]">{customer.bill}</td>
-                    </tr>
-                  );
-                })}
+                        <td className="py-3 min-w-[160px]">
+                          {customer.created_at.split("T")[0]}
+                        </td>
+                        {/* <td className="py-3 min-w-[120px]">{customer.bill}</td> */}
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

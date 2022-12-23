@@ -368,7 +368,7 @@ function Main() {
       </div>
       <div className="bg-Neutral/02 min-h-screen max-h-screen w-[calc(100%-250px)] overflow-y-auto">
         <div className="bg-white h-20 sticky z-[100] top-0 flex justify-end items-center pr-10">
-          <span className="relative">
+          {/* <span className="relative">
             <input
               className="placeholder:text-Neutral/Shades/04-75% bg-Neutral/02 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
               type="text"
@@ -377,7 +377,7 @@ function Main() {
             <span className="absolute right-3 max-w-min max-h-min inset-y-0 my-auto cursor-pointer">
               {search_svg}
             </span>
-          </span>
+          </span> */}
           <Link to={"/messages"} key={1}>
             <span
               className="p-1 block cursor-pointer relative ml-9"

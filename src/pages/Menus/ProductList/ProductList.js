@@ -135,7 +135,7 @@ function ProductList() {
               </>
             ) : (
               <>
-                {[14, 32, 48].map((item) => {
+                {[14, 28, 48].map((item) => {
                   return (
                     <span
                     key={item}

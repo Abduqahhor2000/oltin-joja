@@ -392,7 +392,7 @@ function Main() {
             {notif_svg}
           </span>
           </Link>
-          {console.log(user)}
+          {/* {console.log(user)} */}
           <div className="ml-[26px] h-11 w-11 rounded-full overflow-hidden">
             <img src={`${process.env.REACT_APP_BASE_URL}/${user?.avatar}`} alt="" className="w-full h-full" />
           </div>

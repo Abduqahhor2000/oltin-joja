@@ -45,10 +45,10 @@ function ProductCategory() {
         })
       );
     }
-    console.log(filteredProducts);
+    // console.log(filteredProducts);
   }, [selectAll, categories]);
 
-  console.log(filteredProducts);
+  // console.log(filteredProducts);
 
   function getAllProduct() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -128,6 +128,7 @@ function ProductCategory() {
                 {[14, 32, 48].map((item) => {
                   return (
                     <span
+                    key={item}
                       className={`h-10 w-${item} animate-pulse mr-2.5 rounded-xl bg-white`}
                     ></span>
                   );
@@ -210,7 +211,7 @@ function ProductCategory() {
             <>
               {[1, 2, 3, 4, 5, 6].map((item) => {
                 return (
-                  <div className="w-[calc((100%-60px)/3)] animate-pulse bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 mr-4 font-medium ">
+                  <div key={item} className="w-[calc((100%-60px)/3)] animate-pulse bg-white rounded-[10px] mt-2.5 mb-5 p-2.5 pb-4 mr-4 font-medium ">
                     <div className="h-48 w-full bg-zinc-200 rounded-[10px] mb-4"></div>
                     <div className="flex justify-end mb-2.5">
                       <span className="text-white w-32 h-7 py-0.5 px-2.5 leading-6 bg-Primary/03 rounded-[10px]"></span>

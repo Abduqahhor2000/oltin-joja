@@ -6,50 +6,59 @@ import { costumersInfo } from "../../../store/costumers/costumers";
 import Pagination from "../../pagination/Pagination";
 
 function CustomersList() {
-  const [filterByName, setFilterByName] = useState("");
-  const [paginationLength, setPaginationLength] = useState(1);
-  const dispatch = useDispatch();
-  const costumersData = useSelector(
-    (state) => state?.axmad_joja?.costumers?.costumersData
-  );
+  // const dispatch = useDispatch();
+  const [searchText, setSearchText] = useState("");
+  const [customers, setCustomers] = useState([]);
+  const [totalCustomers, setTotalCustomers] = useState(1);
+  // const [sortData, setSortData] = useState("");
+  // const costumersData = useSelector(
+  //   (state) => state?.axmad_joja?.costumers?.costumersData
+  // );
 
 
-  const handleFilter = (e) => {
-    let checkLength = e.target.value;
-    setFilterByName(checkLength);
-    if (checkLength.length > 2) {
-      // FilterData();
-    FetchData(filterByName,1, 10);
+  // const handleFilter = (e) => {
+  //   let checkLength = e.target.value;
+  //   setFilterByName(checkLength);
+  //   if (checkLength.length > 2) {
+  //     // FilterData();
+  //   FetchData(filterByName,1, 10);
 
-    }
-  };
+  //   }
+  // };
 
   useEffect(() => {
     FetchData(1, 10);
   }, []);
-  const [sortData, setSortData] = useState("");
-  const FilterData = () => {
-    useGet("/v1/users/customers", {
-      q: `${filterByName}`,
-    })
-      .then((res) => {
-        setSortData(res.data?.entities[0]?.full_name);
-        console.log(res.data);
-      })
-      .catch((eror) => console.log(eror));
-  };
 
-  const FetchData = async (filterByName, currentPage, pageSize) => {
+  useEffect(() => {
+    FetchData(1, 10);
+  }, [searchText]);
+
+  // const FilterData = () => {
+  //   useGet("/v1/users/customers", {
+  //     q: `${filterByName}`,
+  //   })
+  //     .then((res) => {
+  //       setSortData(res.data?.entities[0]?.full_name);
+  //       console.log(res.data);
+  //     })
+  //     .catch((eror) => console.log(eror));
+  // };
+
+  // console.log(totalCustomers);
+
+  const FetchData = async (currentPage, pageSize) => {
     // console.log("assa",filterByName);
     await useGet(`/v1/users/customers`, {
-      q: filterByName,
+      q: searchText.length > 1 ? searchText : null,
       "page[offset]": (+currentPage - 1) * pageSize,
       "page[limit]": pageSize,
     })
-      .then((responce) => {
-        dispatch(costumersInfo(responce.data.entities));
-        setPaginationLength(responce.data.pageInfo?.totalCount);
-        setSortData(responce.data?.entities[0]?.full_name);
+      .then(({data}) => {
+        // dispatch(costumersInfo(responce.data.entities));
+        // setPaginationLength(responce.data.pageInfo?.totalCount);
+        setCustomers(data.entities)
+        setTotalCustomers(data.pageInfo?.totalCount)
       })
       .catch((error) => console.log(error));
   };
@@ -64,7 +73,8 @@ function CustomersList() {
             </div>
             <span className="relative mr-5">
               <input
-                onChange={(e) => handleFilter(e)}
+                onChange={(e) => setSearchText(e.target.value)}
+                value={searchText}
                 className="placeholder:text-Neutral/Shades/04-75% bg-white border-[2px] border-Neutral/03 text-black outline-none h-10 w-[200px] text-[15px] pl-4 pr-7 rounded-full"
                 type="text"
                 placeholder="Search customer"
@@ -116,8 +126,7 @@ function CustomersList() {
                 </tr>
               </thead>
               <tbody>
-                {costumersData
-                  .filter((user) => user?.full_name.includes(sortData))
+                {customers
                   .map((customer) => {
                     return (
                       <tr
@@ -137,7 +146,7 @@ function CustomersList() {
                           ) : (
                             <>
                               <span className="w-10 h-10 rounded-full uppercase bg-default-img text-xl leading-6 font-semibold text-white flex justify-center items-center">
-                                {customer.full_name.substring(0, 1)}
+                                {customer?.full_name?.substring(0, 1)}
                               </span>
                             </>
                           )}
@@ -150,7 +159,7 @@ function CustomersList() {
                         {customer.email}
                       </td> */}
                         <td className="py-3 min-w-[160px]">
-                          {customer.created_at.split("T")[0]}
+                          {customer?.created_at.split("T")[0]}
                         </td>
                         {/* <td className="py-3 min-w-[120px]">{customer.bill}</td> */}
                       </tr>
@@ -161,7 +170,7 @@ function CustomersList() {
           </div>
           <div className="flex justify-end w-full mt-5 mb-5">
             <Pagination
-              totalItem={paginationLength}
+              totalItem={totalCustomers}
               changePage={(currentPage, pageSize) => {
                 FetchData(currentPage, pageSize);
               }}

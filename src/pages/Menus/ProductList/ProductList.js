@@ -55,10 +55,10 @@ function ProductList() {
         })
       );
     }
-    console.log(filteredProducts);
+    // console.log(filteredProducts);
   }, [selectAll, categories]);
 
-  console.log(filteredProducts);
+  // console.log(filteredProducts);
 
   function getAllProduct() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -138,6 +138,7 @@ function ProductList() {
                 {[14, 32, 48].map((item) => {
                   return (
                     <span
+                    key={item}
                       className={`h-10 w-${item} animate-pulse mr-2.5 rounded-xl bg-white`}
                     ></span>
                   );

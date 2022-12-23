@@ -186,6 +186,7 @@ function AddAdmin() {
                     type={"full_name"}
                     inputType={"text"}
                     placeholderText={"Full name"}
+                    required={true}
                   />
                 </div>
                 <div className="w-[calc((100%-20px)/2)] text-Neutral/Shades/04-75% text-[15px]">
@@ -218,6 +219,7 @@ function AddAdmin() {
                     type={"phone"}
                     inputType={"text"}
                     placeholderText={"Phone number"}
+                    required={true}
                   />
                 </div>
                 <div className="w-[calc((100%-20px)/2)]">
@@ -229,6 +231,7 @@ function AddAdmin() {
                     type={"password"}
                     inputType={"password"}
                     placeholderText={"Password"}
+                    required={true}
                   />
                 </div>
                 <div className="w-full border border-Neutral/03 rounded py-1.5 px-4">

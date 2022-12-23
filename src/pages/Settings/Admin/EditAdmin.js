@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom"
 import { img_svg } from "../../../svg/admin";
 import Input from "./Components/Input";
 import ReactSelect from "./Components/EditSelect";
-import { usePost } from "../../../api/http";
+import { usePatch, usePost } from "../../../api/http";
 import { notification } from "../../../toastify/Toastify";
 import { useSelector } from "react-redux";
 
@@ -23,7 +23,7 @@ function AddAdmin() {
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    password: admin.password,
+    password: admin.password ? admin.password : "",
     full_name: admin.full_name,
     phone: admin.phone,
     // email: "",
@@ -67,9 +67,7 @@ function AddAdmin() {
       allError.phone = "Invalid phone number";
     }
     
-    if (!allValue.password) {
-      allError.password = "Required";
-    } else if (allValue.password.length < 8) {
+    if (0 < allValue.password.length && allValue.password.length < 8) {
       allError.password = "Must be at least 8 characters";
     }
 
@@ -92,10 +90,18 @@ function AddAdmin() {
       return;
     }
 
+    let makeData = values.password ? values 
+                   : {
+                    full_name: values.full_name,
+                    phone: values.phone,
+                    avatar: values.avatar,
+                    role: values.role,
+                   }
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    usePost("/v1/users/admin", values)
+    usePatch(`/v1/users/${admin.id}`, makeData)
       .then((data) => {
-        notification()
+        notification("success", "Data saved")
         navigate("/admins")
         // console.log(data)
       })
@@ -226,6 +232,7 @@ function AddAdmin() {
                     type={"password"}
                     inputType={"password"}
                     placeholderText={"Password"}
+                    required={false}
                   />
                 </div>
                 <div className="w-full border border-Neutral/03 rounded py-1.5 px-4">
@@ -301,9 +308,9 @@ function AddAdmin() {
                   Admin photo
                 </span>
                 <div className={`border relative border-dashed rounded-lg w-full min-h-[200px] max-h-[250px] grow ${fileError ? "border-alarm" : values.avatar  ? "border-success" : "border-Neutral/Shade/04-40%"}`}>
-                  {selectedFile ? (
+                  {values.avatar ? (
                     <div className="w-full h-full">
-                      <img className={`w-full h-full object-contain ${fileUploading ? "animate-pulse" : ""}`} src={URL.createObjectURL(selectedFile)} alt=""/>
+                      <img className={`w-full h-full object-contain ${fileUploading ? "animate-pulse" : ""}`} src={`${process.env.REACT_APP_BASE_URL}/${values.avatar}`} alt=""/>
                     </div>
                   ):(
                     <div className="flex flex-col items-center w-full h-full justify-center">

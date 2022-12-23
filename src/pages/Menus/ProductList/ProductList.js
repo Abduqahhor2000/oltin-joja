@@ -23,6 +23,7 @@ function ProductList() {
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [products, setProducts] = useState([]);
+  const [getDataStatus, setGetDataStatus] = useState(false);
 
   // useEffect(() => {
   //   const next_product = document.querySelector("#next-product");
@@ -68,8 +69,9 @@ function ProductList() {
         })
       );
       setProducts(data?.products);
-      console.log(data.products);
-      console.log(data.groups);
+      // console.log(data.products);
+      // console.log(data.groups);
+      setGetDataStatus(true);
     });
   }
 
@@ -113,21 +115,35 @@ function ProductList() {
             >
               All
             </span>
-            {categories.map((category) => {
-              return (
-                <span
-                  key={category.id}
-                  onClick={() => selectCategory(category.id)}
-                  className={`h-10 duration-200 px-4 mr-2.5 rounded-xl font-medium py-[9px] border border-transparent cursor-pointer ${
-                    category.selected
-                      ? "text-white bg-Primary/03 hover:bg-hoverButton"
-                      : "text-Neutral/Shades/04-75% bg-white hover:border-Neutral/Shades/04-75% hover:bg-transparent"
-                  }`}
-                >
-                  {category.name}
-                </span>
-              );
-            })}
+            {getDataStatus ? (
+              <>
+                {categories.map((category) => {
+                  return (
+                    <span
+                      key={category.id}
+                      onClick={() => selectCategory(category.id)}
+                      className={`h-10 duration-200 px-4 mr-2.5 rounded-xl font-medium py-[9px] border border-transparent cursor-pointer ${
+                        category.selected
+                          ? "text-white bg-Primary/03 hover:bg-hoverButton"
+                          : "text-Neutral/Shades/04-75% bg-white hover:border-Neutral/Shades/04-75% hover:bg-transparent"
+                      }`}
+                    >
+                      {category.name}
+                    </span>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                {[14, 32, 48].map((item) => {
+                  return (
+                    <span
+                      className={`h-10 w-${item} animate-pulse mr-2.5 rounded-xl bg-white`}
+                    ></span>
+                  );
+                })}
+              </>
+            )}
           </div>
           {/* <span
             onClick={() => navigate("/product_list/add-product")}
@@ -180,46 +196,52 @@ function ProductList() {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product, index) => {
-                return (
-                  <tr key={index} className={`border-b border-Neutral/03`}>
-                    <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
-                      <span
-                        className="cursor-pointer border border-transparent hover:border-Neutral/Shades/04-75% hover:text-Neutral/Shades/04-75% rounded-md p-1"
-                        onClick={() => {
-                          navigator.clipboard.writeText(product.id);
-                          notification("success", "Text copied", "bottom-center")
-                        }}
-                      >
-                      {product.id.substring(0, 8)}....
-                      </span>
-                    </td>
-                    <td className="py-1.5 min-w-[80px]">
-                      <img
-                        className="w-10 h-10 rounded-full object-cover"
-                        src={product.imageLinks[0]}
-                        alt=""
-                      />
-                    </td>
-                    <td className="py-3 min-w-[220px]">{product.name}</td>
-                    <td className="py-2 flex justify-center min-w-[180px]">
-                      <span
-                        // onClick={() => cantrolStock(product.id)}
-                        className={`w-[110px] h-9 rounded-[10px] ${
-                          product.isDeleted
-                            ? "bg-Primary/03/50"
-                            : "bg-Primary/03"
-                        } text-sm text-white font-semibold flex justify-center items-center`}
-                      >
-                        {product.isDeleted ? "Out of Stock" : "In Stock"}
-                      </span>
-                    </td>
-                    <td className="py-3 min-w-[100px]">
-                      {product.sizePrices[0].price.currentPrice}
-                    </td>
-                    <td className="text-end pr-7 w-[100px] min-w-[100px]">
-                      <div className="flex w-full justify-between">
-                        {/* <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
+              {getDataStatus ? (
+                <>
+                  {filteredProducts.map((product, index) => {
+                    return (
+                      <tr key={index} className={`border-b border-Neutral/03`}>
+                        <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
+                          <span
+                            className="cursor-pointer border border-transparent hover:border-Neutral/Shades/04-75% hover:text-Neutral/Shades/04-75% rounded-md p-1"
+                            onClick={() => {
+                              navigator.clipboard.writeText(product.id);
+                              notification(
+                                "success",
+                                "Text copied",
+                                "bottom-center"
+                              );
+                            }}
+                          >
+                            {product.id.substring(0, 8)}....
+                          </span>
+                        </td>
+                        <td className="py-1.5 min-w-[80px]">
+                          <img
+                            className="w-10 h-10 rounded-full object-cover"
+                            src={product.imageLinks[0]}
+                            alt=""
+                          />
+                        </td>
+                        <td className="py-3 min-w-[220px]">{product.name}</td>
+                        <td className="py-2 flex justify-center min-w-[180px]">
+                          <span
+                            // onClick={() => cantrolStock(product.id)}
+                            className={`w-[110px] h-9 rounded-[10px] ${
+                              product.isDeleted
+                                ? "bg-Primary/03/50"
+                                : "bg-Primary/03"
+                            } text-sm text-white font-semibold flex justify-center items-center`}
+                          >
+                            {product.isDeleted ? "Out of Stock" : "In Stock"}
+                          </span>
+                        </td>
+                        <td className="py-3 min-w-[100px]">
+                          {product.sizePrices[0].price.currentPrice}
+                        </td>
+                        <td className="text-end pr-7 w-[100px] min-w-[100px]">
+                          <div className="flex w-full justify-between">
+                            {/* <span className="p-1 group cursor-pointer w-8 h-8 select-none pt-1.5">
                           <span className="hidden group-hover:block">
                             {edit_svg}
                           </span>
@@ -227,15 +249,15 @@ function ProductList() {
                             {edit_grey_svg}
                           </span>
                         </span> */}
-                        <span className="p-1 group cursor-pointer ml-2 mr-1 w-8 h-8 select-none pt-1.5">
-                          <span className="hidden group-hover:block">
-                            {send_svg}
-                          </span>
-                          <span className="block group-hover:hidden">
-                            {send_grey_svg}
-                          </span>
-                        </span>
-                        {/* <span className="p-1 cursor-pointer group select-none">
+                            <span className="p-1 group cursor-pointer ml-2 mr-1 w-8 h-8 select-none pt-1.5">
+                              <span className="hidden group-hover:block">
+                                {send_svg}
+                              </span>
+                              <span className="block group-hover:hidden">
+                                {send_grey_svg}
+                              </span>
+                            </span>
+                            {/* <span className="p-1 cursor-pointer group select-none">
                           <span className="hidden group-hover:block">
                             {del_svg}
                           </span>
@@ -243,11 +265,52 @@ function ProductList() {
                             {del_grey_svg}
                           </span>
                         </span> */}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  {[1, 2, 3, 4, 5].map((item) => {
+                    return (
+                      <tr
+                        key={item}
+                        className={`border-b border-Neutral/03 animate-pulse`}
+                      >
+                        <td className="py-3 pl-5 min-w-[150px] max-w-[200px]">
+                          <span className="rounded-md p-1 bg-Neutral/03 w-20 block h-5"></span>
+                        </td>
+                        <td className="py-1.5 min-w-[80px]">
+                          <span className="w-10 h-10 rounded-full bg-Neutral/03 block"></span>
+                        </td>
+                        <td className="py-3 min-w-[220px]">
+                          <span className="rounded-md p-1 bg-Neutral/03 w-60 block h-5"></span>
+                        </td>
+                        <td className="py-2 flex justify-center min-w-[180px]">
+                          <span className="w-[110px] h-9 rounded-[10px] bg-Primary/03 text-sm text-white font-semibold flex justify-center items-center"></span>
+                        </td>
+                        <td className="py-3 min-w-[100px]">
+                        <span className="rounded-md p-1 bg-Neutral/03 w-20 block h-5"></span>
+                        </td>
+                        <td className="text-end pr-7 w-[100px] min-w-[100px]">
+                          <div className="flex w-full justify-between">
+                            <span className="p-1 group cursor-pointer ml-2 mr-1 w-8 h-8 select-none pt-1.5">
+                              <span className="hidden group-hover:block">
+                                {send_svg}
+                              </span>
+                              <span className="block group-hover:hidden">
+                                {send_grey_svg}
+                              </span>
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              )}
             </tbody>
           </table>
           {/* <div id="next-product"></div> */}

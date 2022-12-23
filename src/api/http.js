@@ -21,7 +21,7 @@ function createInstance(baseURL, type, authorization) {
     async (res) => res,
     (error) => {
       const refreshToken = localStorage.getItem('refreshToken') 
-      console.log(refreshToken, error)
+      // console.log(refreshToken, error)
       if (error.response?.status === 401 && refreshToken) {
         axios
           .post(

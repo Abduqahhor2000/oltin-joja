@@ -12,8 +12,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import { usePost } from "../../api/http";
+import { useDispatch } from "react-redux";
+import { add } from "../../store/auth/userInfo";
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [formValue, setFormValue] = useState({
@@ -37,6 +40,7 @@ const LoginForm = () => {
         notifyLoginSuccess();
         setActive(false);
         // console.log(res.data);
+        dispatch(add(res.data.user))
         localStorage.setItem("Authorization", res.data.token);
         localStorage.setItem("refreshToken", res.data.refreshToken);
         navigate("/product_category");

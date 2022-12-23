@@ -9,6 +9,7 @@ function Input({
   type,
   placeholderText,
   inputType,
+  required,
 }) {
   const [isOpenPass, setIsOpenPass] = useState(false);
 
@@ -26,7 +27,7 @@ function Input({
         value={values[type]}
         autoComplete="off"
         maxLength={100}
-        required
+        required={required}
         className={`peer border rounded h-11 w-full outline-none focus:border-Primary/03 duration-150 pl-4 pr-10 ${
           values[type] && !errors[type]
             ? "border-success"

@@ -109,7 +109,7 @@ function CustomersReview() {
                     ) : (
                       <>
                         <span className="w-14 h-14 rounded-full bg-default-img text-2xl leading-6 font-semibold text-white flex justify-center items-center">
-                          {comment?.user.name?.substring(0, 1)}
+                          {comment?.user?.name?.substring(0, 1)}
                         </span>
                       </>
                     )}

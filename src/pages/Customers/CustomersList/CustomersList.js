@@ -1,30 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { search_svg } from "../../../svg/navbar";
 import { useGet } from "../../../api/http";
-// import { useDispatch, useSelector } from "react-redux";
-// import { costumersInfo } from "../../../store/costumers/costumers";
+import { useDispatch, useSelector } from "react-redux";
+import { costumersInfo } from "../../../store/costumers/costumers";
 import Pagination from "../../pagination/Pagination";
 
 function CustomersList() {
-  // const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [customers, setCustomers] = useState([]);
   const [totalCustomers, setTotalCustomers] = useState(1);
-  // const [sortData, setSortData] = useState("");
-  // const costumersData = useSelector(
-  //   (state) => state?.axmad_joja?.costumers?.costumersData
-  // );
-
-
-  // const handleFilter = (e) => {
-  //   let checkLength = e.target.value;
-  //   setFilterByName(checkLength);
-  //   if (checkLength.length > 2) {
-  //     // FilterData();
-  //   FetchData(filterByName,1, 10);
-
-  //   }
-  // };
 
   useEffect(() => {
     FetchData(1, 10);
@@ -34,29 +18,13 @@ function CustomersList() {
     FetchData(1, 10);
   }, [searchText]);
 
-  // const FilterData = () => {
-  //   useGet("/v1/users/customers", {
-  //     q: `${filterByName}`,
-  //   })
-  //     .then((res) => {
-  //       setSortData(res.data?.entities[0]?.full_name);
-  //       console.log(res.data);
-  //     })
-  //     .catch((eror) => console.log(eror));
-  // };
-
-  // console.log(totalCustomers);
-
   const FetchData = async (currentPage, pageSize) => {
-    // console.log("assa",filterByName);
     await useGet(`/v1/users/customers`, {
       q: searchText.length > 1 ? searchText : null,
       "page[offset]": (+currentPage - 1) * pageSize,
       "page[limit]": pageSize,
     })
       .then(({data}) => {
-        // dispatch(costumersInfo(responce.data.entities));
-        // setPaginationLength(responce.data.pageInfo?.totalCount);
         setCustomers(data.entities)
         setTotalCustomers(data.pageInfo?.totalCount)
       })
@@ -85,6 +53,7 @@ function CustomersList() {
             </span>
           </div>
           <div className="overflow-auto relative max-h-[calc(100vh-280px)] ">
+            
             <table className="w-full text-sm text-Neutral/Shades/04-75%">
               <thead>
                 <tr className="text-Neutral/Shade/07-50% sticky top-0 bg-white z-10">
@@ -125,7 +94,7 @@ function CustomersList() {
                   </th> */}
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {customers
                   .map((customer) => {
                     return (

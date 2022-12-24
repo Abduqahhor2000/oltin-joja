@@ -7,6 +7,7 @@ module.exports = {
         mdPlus:"1050px"
       },
       colors: {
+      'Neutral/05': '#33383F',
       'Neutral/04': '#6F767E',
       'Neutral/03': '#EFEFEF',
       'Neutral/02': '#F4F4F4',
@@ -30,6 +31,12 @@ module.exports = {
       inter: [
         "Inter, sans-serif",
         // { fontFeatureSettings: '"cv11", "ss01"' },
+      ],
+      nunito: [
+        "Nunito, sans-serif",
+      ],
+      nunito_sans: [
+        "Nunito Sans, sans-serif",
       ],
     },
   },

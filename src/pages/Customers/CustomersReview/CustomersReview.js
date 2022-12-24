@@ -100,7 +100,7 @@ function CustomersReview() {
               return (
                 <div key={comment.id} className="flex mb-7">
                   <div className="w-20 flex-none flex justify-center">
-                    {comment.user.avatar ? (
+                    {comment?.user?.avatar ? (
                       <img
                         className="w-14 h-14 rounded-full object-cover"
                         src={comment?.image}

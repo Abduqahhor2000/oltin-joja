@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { add } from "../../store/auth/userInfo";
 
 const LoginForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [formValue, setFormValue] = useState({
@@ -40,7 +40,7 @@ const LoginForm = () => {
         notifyLoginSuccess();
         setActive(false);
         // console.log(res.data);
-        dispatch(add(res.data.user))
+        dispatch(add(res.data.user));
         localStorage.setItem("Authorization", res.data.token);
         localStorage.setItem("refreshToken", res.data.refreshToken);
         navigate("/product_category");
@@ -85,6 +85,7 @@ const LoginForm = () => {
           autoComplete="off"
           onChange={onChange}
           name="password"
+          maxLength={8}
           className="peer px-4 py-2  w-full outline-none border  rounded-lg h-full valid:border-green-300 focus:border-Primary/03"
           type={visible ? "text" : "password"}
         />
@@ -101,7 +102,7 @@ const LoginForm = () => {
       </div>
       <div className="flex justify-end w-full mt-5">
         <p className="underline-offset-1 underline cursor-pointer ">
-          Forgot password
+          {/* Forgot password */}
         </p>
       </div>
       <button
@@ -117,8 +118,8 @@ const LoginForm = () => {
         )}
       </button>
       <ToastContainer
-        position="top-center"
-        autoClose={3000}
+        position="top-right"
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -126,7 +127,9 @@ const LoginForm = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme="light"
       />
+      <ToastContainer />
     </form>
   );
 };

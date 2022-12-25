@@ -15,7 +15,7 @@ export const notifyLoginSuccess = () =>
 
 export const notifyLoginError = () =>
   toast.error("Login or password incorrect", {
-    position: "top-center",
+    position: "bottom-center",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,

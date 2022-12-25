@@ -1,8 +1,5 @@
 import React from 'react'
-// import { useState, useEffect } from 'react'
-// import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import LoginForm from "./LoginForm"
-// import {  toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   return (
@@ -11,9 +8,9 @@ function Login() {
         <img alt='' src='/loginBackground.png' className='object-cover w-full h-full' />
       </div>
       <div className='w-1/2 h-[100vh]  flex justify-center items-center'>
-        <div className='w-full'>
+        <div className='px-5'>
           <h1 className='text-5xl tracking-[.05em] font-rowdies text-Primary/03 text-center'>Oltin Jo'ja</h1>
-          <div className='flex flex-wrap justify-center items-center'>
+          <div className='flex flex-wrap px-16 justify-center items-center'>
             <h2 className='w-full text-center mt-5 text-xl font-bold'>Login to Account</h2>
             <LoginForm />
           </div>
